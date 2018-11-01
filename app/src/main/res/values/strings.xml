@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">StreetInt</string>
+
+    <!-- MAIN ACTIVITY -->
+    <string name="myprofile">My profile</string>
+    <string name="motto">"It never gets easier,</string>
+    <string name="motto2">you just get better"</string>
+    <string name="mypersoworkout">My personal workout</string>
+    <string name="allworkouts">All workouts</string>
+    <string name="workout">workout</string>
+
+    <!-- QUICK CHRONO -->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="chrono1">25 sec</string>
+    <string name="chrono2">1 min</string>
+    <string name="chrono3">1 min 30</string>
+    <string name="chrono4">2 min</string>
+    <string name="chrono5">3 min</string>
+    <string name="chrono6">5 min</string>
+    <string name="skip">Skip</string>
+
+    <!-- CHOOSEWORKOUT -->
+    <string name="skills">Skills</string>
+    <string name="created_workouts">Created workouts</string>
+    <string name="intelligent_workout">Intelligent workout</string>
+    <string name="create_a_workout">Create a workout</string>
+    <string name="premade_workouts">Premade workouts</string>
+
+    <!-- PREMADEWORKOUT-->
+    <string name="filter">Filter</string>
+
+
+</resources>

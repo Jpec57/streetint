@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="@drawable/round_corner_button"
+                                             android:layout_margin="5sp"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_width="120sp"
+               android:layout_height="120sp"
+               android:contentDescription="@string/allworkouts"
+               android:id="@+id/img"
+               android:src="@drawable/face_the_bar"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
+
+    />
+    <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/allworkouts"
+              android:textStyle="bold"
+              android:textSize="16sp"
+              android:textColor="@color/black"
+              android:id="@+id/workout_name"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintVertical_bias="0.25"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/allworkouts"
+              android:id="@+id/workout_muscle"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@id/workout_name"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintVertical_bias="0"
+
+    />
+
+    <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical2"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/six"
+              android:id="@+id/time"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical2"
+              app:layout_constraintEnd_toEndOf="parent"
+    />
+
+</android.support.constraint.ConstraintLayout>
