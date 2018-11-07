@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "760645164362",
+    "firebase_url": "https://streetint.firebaseio.com",
+    "project_id": "streetint",
+    "storage_bucket": "streetint.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760645164362:android:ecc981333cef82e7",
+        "android_client_info": {
+          "package_name": "com.example.jpec.streetint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760645164362-q8lg24p6nvn3omra40o228fl8cmo72nq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmPjWXfqM9kDEmU4cMBibbsPK6gojiuFY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

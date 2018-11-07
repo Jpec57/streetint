@@ -1,25 +1,48 @@
 package com.example.jpec.streetint.activities
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.media.MediaPlayer
+import android.os.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.main_activity.main_activity.MainFragment
-import com.example.jpec.streetint.fragments.main_activity.main_activity.QuickChronoFragment
+import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutCountdownViewFragment
+import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutExerciseViewFragment
+import com.example.jpec.streetint.models.Workout
+import com.example.jpec.streetint.utils.LockableViewPager
 
-class MainActivity : FragmentActivity() {
+
+class InWorkoutActivity : FragmentActivity() {
     val NUM_PAGES = 2
-    private lateinit var mPager: ViewPager
+    lateinit var mPager: LockableViewPager
+    var workout: Workout? = null
+    var time: Int = 0
+    var currentSerie = 1
+    var currentExo = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_in_workout)
+
+        //get data
+        val bundle = intent.extras
+        if (bundle != null)
+        {
+//            workout = bundle.getParcelable("workout")
+            workout = bundle.getSerializable("workout") as Workout
+
+        }
+        launchTime()
+
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager)
+        mPager.setSwipePagingEnabled(false)
 
         // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
@@ -43,10 +66,22 @@ class MainActivity : FragmentActivity() {
         override fun getItem(position: Int): Fragment =
             when (position)
             {
-                0 -> MainFragment()
-                else -> QuickChronoFragment()
+                0 -> WorkoutExerciseViewFragment()
+                else -> WorkoutCountdownViewFragment()
 
             }
     }
 
+    private fun launchTime()
+    {
+        val handler = Handler()
+        val delay: Long = 1000
+
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                time += 1
+                handler.postDelayed(this, delay)
+            }
+        }, delay)
+    }
 }

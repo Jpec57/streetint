@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.example.jpec.streetint.R
 import kotlinx.android.synthetic.main.activity_choose_program.*
 
-class ChooseProgram : AppCompatActivity(){
+class ChooseProgramActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +16,7 @@ class ChooseProgram : AppCompatActivity(){
 
     private fun setOnClickButtons()
     {
-        premade.setOnClickListener { startActivity(Intent(this, ChoosePremadeWorkout::class.java)) }
+        premade.setOnClickListener { startActivity(Intent(this, ChoosePremadeWorkoutActivity::class.java)) }
     }
 
 }

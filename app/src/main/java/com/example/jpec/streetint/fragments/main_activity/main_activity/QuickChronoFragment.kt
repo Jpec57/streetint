@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.main_activity
+package com.example.jpec.streetint.fragments.main_activity.main_activity
 
 import android.content.Context
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.main_activity
+package com.example.jpec.streetint.fragments.main_activity.main_activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.activities.ChooseProgram
+import com.example.jpec.streetint.activities.ChooseProgramActivity
 import kotlinx.android.synthetic.main.fragment_main_activity.*
 
 class MainFragment : Fragment() {
@@ -18,7 +18,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view!!, savedInstanceState)
         allworkouts.setOnClickListener {
-            startActivity(Intent(activity!!.applicationContext, ChooseProgram::class.java))
+            startActivity(Intent(activity!!.applicationContext, ChooseProgramActivity::class.java))
         }
     }
 

@@ -34,6 +34,10 @@
 
     <!-- PREMADEWORKOUT-->
     <string name="filter">Filter</string>
+    <string name="minutes">minutes</string>
+    <string name="start">Start</string>
+    <string name="quit">Quit</string>
+    <string name="done">Done</string>
 
 
 </resources>
