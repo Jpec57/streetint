@@ -45,30 +45,31 @@ class WorkoutExerciseViewFragment : Fragment() {
         }
     }
 
-
-
-    private fun setCorrectSerie()
+    private fun updateDoneWorkout()
     {
-
-        ref.currentSerie += 1
-        if (ref.currentSerie > ref.workout!!.exercises[ref.currentExo].series)
+        val doneExo = ref.doneWorkout!!.exercises
+        if (doneExo.size < ref.currentExo + 1)
         {
-            ref.currentSerie = 1
-            ref.currentExo += 1
+            val exo = ref.workout!!.exercises[ref.currentExo].copy()
+            exo.series = 1
+            exo.reps = 0
+            doneExo.add(exo)
+            Log.e("Jpec", "Exo added")
         }
-        if (ref.currentExo > ref.workout!!.exercises.size - 1)
+        else
         {
-            Toast.makeText(activity, "End of your workout", Toast.LENGTH_LONG).show()
-            startActivity(Intent(activity, MainActivity::class.java))
+            doneExo[ref.currentExo].series++
         }
     }
 
     private fun setOnExerciseView()
     {
+        updateDoneWorkout()
         exo = ref.workout!!.exercises[ref.currentExo]
         if (exo.superset != null && !first)
         {
             exo = exo.superset as Exercise
+            first = true
         }
         exo_name.text = exo.name
         var holdTime = 0
@@ -112,7 +113,6 @@ class WorkoutExerciseViewFragment : Fragment() {
             }
             else
             {
-                setCorrectSerie()
                 handler.removeCallbacks(runnable)
                 ref.mPager.currentItem = 1
             }

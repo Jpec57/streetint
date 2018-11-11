@@ -13,16 +13,22 @@ import com.example.jpec.streetint.models.Workout
 interface WorkoutDAO {
 
     @Query("SELECT * from workouts")
-    fun getAll(): List<Workout>
+    fun getAllWorkouts(): List<Workout>
+
+    @Query("SELECT * from workouts where name =:name")
+    fun getWorkout(name: String) : List<Workout>
+
+    @Query("SELECT * from workouts where name=:name order by timestamp limit 1")
+    fun getInitWorkout(name: String) : Workout
 
     @Insert(onConflict = REPLACE)
-    fun insert(weatherData: Workout)
+    fun insertWorkout(workout: Workout)
 
     @Query("DELETE from workouts where name = :name")
-    fun delete(name: String)
+    fun deleteWorkout(name: String)
 
     @Query("DELETE from workouts")
-    fun deleteAll()
+    fun deleteAllWorkouts()
 }
 
 
@@ -39,11 +45,11 @@ abstract class WorkoutDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(WorkoutDatabase::class) {
                     //tmp
-                    INSTANCE = Room.inMemoryDatabaseBuilder(context.applicationContext, WorkoutDatabase::class.java).build()
+//                    INSTANCE = Room.inMemoryDatabaseBuilder(context.applicationContext, WorkoutDatabase::class.java).build()
 
-//                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-//                        WorkoutDatabase::class.java, "workouts.db")
-//                        .build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,
+                        WorkoutDatabase::class.java, "workouts.db")
+                        .build()
 
                 }
             }
@@ -60,10 +66,12 @@ abstract class WorkoutDatabase : RoomDatabase() {
 class DbWorkerThread(threadName: String) : HandlerThread(threadName) {
 
     private lateinit var mWorkerHandler: Handler
+    var ready = false
 
     override fun onLooperPrepared() {
         super.onLooperPrepared()
         mWorkerHandler = Handler(looper)
+        this.ready = true
     }
 
     fun postTask(task: Runnable) {

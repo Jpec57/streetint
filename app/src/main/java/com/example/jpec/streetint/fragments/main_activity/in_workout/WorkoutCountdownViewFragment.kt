@@ -11,16 +11,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.jpec.streetint.R
+import com.example.jpec.streetint.activities.ChooseProgramActivity
+import com.example.jpec.streetint.activities.EndOfWorkoutActivity
 import com.example.jpec.streetint.activities.InWorkoutActivity
 import com.example.jpec.streetint.activities.MainActivity
+import com.example.jpec.streetint.interfaces.DbWorkerThread
+import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.models.Workout
+import com.example.jpec.streetint.utils.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.fragment_in_workout_rest.*
+import java.lang.IndexOutOfBoundsException
+import java.util.concurrent.TimeUnit
+import kotlin.math.absoluteValue
 
 class WorkoutCountdownViewFragment : Fragment() {
     private lateinit var ref: InWorkoutActivity
     lateinit var timer : CountDownTimer
     private lateinit var bip : MediaPlayer
+    private lateinit var countdown_sound : MediaPlayer
+    private var centralNumber: Int = 2
+    private var oldExo = 0
+    private var oldSerie = 1
+    private var end = false
 
-
+    private lateinit var mDbWorkerThread: DbWorkerThread
+    private var mDb: WorkoutDatabase? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_in_workout_rest, container, false)
@@ -30,7 +45,9 @@ class WorkoutCountdownViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ref = this.activity as InWorkoutActivity
         bip = MediaPlayer.create(activity, R.raw.bip)
+        countdown_sound = MediaPlayer.create(activity, R.raw.countdown)
         setOnClickButtonsCountdown()
+        setDatabase()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -40,39 +57,146 @@ class WorkoutCountdownViewFragment : Fragment() {
         }
     }
 
+    private fun setCorrectSerie()
+    {
+        oldExo = ref.currentExo
+        oldSerie = ref.currentSerie
+        centralNumber = ref.workout!!.exercises[oldExo].reps
+        if (ref.currentSerie >= ref.workout!!.exercises[ref.currentExo].series)
+        {
+            ref.currentSerie = 1
+            ref.currentExo += 1
+        }
+        else
+            ref.currentSerie += 1
+        if (ref.currentExo > ref.workout!!.exercises.size - 1)
+        {
+            end = true
+            countdown.visibility = View.INVISIBLE
+            infoSerie.visibility = View.INVISIBLE
+            imageView.visibility = View.INVISIBLE
+            next.text = getString(R.string.end)
+        }
+    }
+
     private fun setOnCountdownView()
     {
-        timer = object: CountDownTimer((ref.workout!!.exercises[ref.currentExo].rest * 1000).toLong(), 1000){
-            override fun onTick(millisUntilFinished: Long){
-                countdown.text = (millisUntilFinished / 1000).toString()
+        setCorrectSerie()
+        if (!end)
+        {
+            timer = object: CountDownTimer((ref.workout!!.exercises[ref.currentExo].rest * 1000).toLong(), 1000){
+                override fun onTick(millisUntilFinished: Long){
+                    countdown.text = (millisUntilFinished / 1000).toString()
+                    if (countdown.text == "3")
+                    {
+                        countdown_sound.start()
+                    }
+                }
+
+                override fun onFinish() {
+                    endCountDown()
+                }
+            }.start()
+            val info = "NEXT: ${ref.currentSerie} / ${ref.workout!!.exercises[ref.currentExo].series}"
+            infoSerie.text = info
+            next.text = ref.workout!!.exercises[ref.currentExo].name
+            next_desc.text = ref.workout!!.exercises[ref.currentExo].description
+            imageView.setOnClickListener {
+                if (next_desc.visibility == View.INVISIBLE)
+                {
+                    imageView.alpha = 0.6f
+                    next_desc.visibility = View.VISIBLE
+                }
+                else
+                {
+                    imageView.alpha = 1.0f
+                    next_desc.visibility = View.INVISIBLE
+                }
             }
 
-            override fun onFinish() {
-                endCountDown()
-            }
-        }.start()
-        val info = "NEXT: ${ref.currentSerie} / ${ref.workout!!.exercises[ref.currentExo].series}"
-        infoSerie.text = info
-        next.text = ref.workout!!.exercises[ref.currentExo].name
+            setRepSliderContent(0)
+            slider.setOnTouchListener(object : OnSwipeTouchListener(activity!!.applicationContext){
+                override fun onSwipeLeft(velocityX: Float) {
+                    setRepSliderContent(calibrateVelocity(velocityX), true)
+                }
+
+                override fun onSwipeRight(velocityX: Float) {
+                    setRepSliderContent(calibrateVelocity(velocityX))
+                }
+
+            })
+        }
     }
 
-    fun endCountDown()
+    private fun setCorrectDoneReps()
+    {
+        ref.doneWorkout!!.exercises[oldExo].reps += centralNumber
+    }
+
+    private fun endCountDown()
     {
         timer.cancel()
-
-        bip.start()
-        val v = activity!!.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            v.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
+        setCorrectDoneReps()
+        if (!end)
+        {
+            bip.start()
+            val v = activity!!.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                v.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
+            else
+                v.vibrate(1000)
+            ref.mPager.currentItem = 0
+        }
         else
-            v.vibrate(1000)
-        ref.mPager.currentItem = 0
-
-
-//        "Save in database the real number of reps done"
+        {
+            saveWorkoutInDb()
+            val intent = Intent(activity!!.applicationContext, EndOfWorkoutActivity::class.java)
+            intent.putExtra("name", ref.workout!!.name)
+            startActivity(intent)
+        }
     }
 
+    private fun setDatabase()
+    {
+        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
+        mDbWorkerThread.start()
 
+        mDb = WorkoutDatabase.getInstance(activity!!.applicationContext)
+    }
+
+    private fun saveWorkoutInDb()
+    {
+        ref.doneWorkout!!.timestamp = (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())).toString()
+
+        val task = Runnable {
+            mDb?.workoutDao()?.insertWorkout(ref.doneWorkout as Workout)
+        }
+        mDbWorkerThread.postTask(task)
+    }
+
+    private fun calibrateVelocity(velocityX: Float): Int
+    {
+        val calibratedVelocity = (velocityX / 50).absoluteValue.toInt()
+        if (calibratedVelocity > 10)
+            return 10
+        else
+            return calibratedVelocity
+    }
+
+    private fun setRepSliderContent(difference: Int, isLeft: Boolean = false)
+    {
+        centralNumber = if (!isLeft)
+        {
+            if (centralNumber - difference < 0) 0 else centralNumber - difference
+        }
+        else
+            centralNumber + difference
+        first.text = if (centralNumber - 2 > 0) "${centralNumber - 2}" else "${0}"
+        second.text = if (centralNumber - 1 > 0) "${centralNumber - 1}" else "${0}"
+        third.text = "$centralNumber"
+        fourth.text = "${centralNumber + 1}"
+        fifth.text = "${centralNumber + 2}"
+    }
 
 
     private fun setOnClickButtonsCountdown()
@@ -81,8 +205,18 @@ class WorkoutCountdownViewFragment : Fragment() {
             endCountDown()
         }
         quit.setOnClickListener {
+            end = true
             endCountDown()
-            startActivity(Intent(activity, MainActivity::class.java))
         }
+//        first.setOnClickListener { setRepSliderContent(2) }
+//        second.setOnClickListener { setRepSliderContent(1) }
+//        fourth.setOnClickListener { setRepSliderContent(1, true) }
+//        fifth.setOnClickListener { setRepSliderContent(2, true) }
+    }
+
+    override fun onDestroy() {
+        WorkoutDatabase.destroyInstance()
+        mDbWorkerThread.quit()
+        super.onDestroy()
     }
 }

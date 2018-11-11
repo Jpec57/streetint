@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="@drawable/round_corner_button"
+                                             android:layout_margin="5dp"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_width="100sp"
+               android:layout_height="100sp"
+               android:id="@+id/img"
+               android:contentDescription="@string/app_name"
+               android:src="@drawable/flag"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/exo_name"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              android:text="@string/app_name"
+              android:textColor="@color/black"
+              app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toEndOf="@id/guideline_vertical2"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintVertical_bias="0.1"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/exo_reps"
+              android:textSize="18sp"
+              android:text="@string/app_name"
+              app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintTop_toBottomOf="@id/exo_name"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintVertical_bias="0"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/exo_reps_moy"
+              android:textSize="18sp"
+              android:text="@string/app_name"
+              app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintTop_toBottomOf="@id/exo_reps"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintVertical_bias="0"
+    />
+
+    <android.support.constraint.Guideline
+            android:id="@+id/guideline_vertical2"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.78"/>
+    <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/green"
+            android:id="@+id/isPositive"
+    >
+
+    </View>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/percent"
+              android:textSize="40sp"
+              android:textColor="@color/grey1"
+              android:text="@string/_5"
+              app:layout_constraintStart_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+</android.support.constraint.ConstraintLayout>

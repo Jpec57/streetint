@@ -10,9 +10,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.util.Log
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutCountdownViewFragment
 import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutExerciseViewFragment
+import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.LockableViewPager
 
@@ -24,6 +26,7 @@ class InWorkoutActivity : FragmentActivity() {
     var time: Int = 0
     var currentSerie = 1
     var currentExo = 0
+    var doneWorkout: Workout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +36,9 @@ class InWorkoutActivity : FragmentActivity() {
         val bundle = intent.extras
         if (bundle != null)
         {
-//            workout = bundle.getParcelable("workout")
             workout = bundle.getSerializable("workout") as Workout
-
+            doneWorkout = workout!!.copy()
+            doneWorkout!!.exercises = ArrayList()
         }
         launchTime()
 
@@ -50,14 +53,11 @@ class InWorkoutActivity : FragmentActivity() {
     }
 
     override fun onBackPressed() {
-        if (mPager.currentItem == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed()
-        } else {
-            // Otherwise, select the previous step.
-            mPager.currentItem = mPager.currentItem - 1
-        }
+//        if (mPager.currentItem == 0) {
+//            super.onBackPressed()
+//        } else {
+//            mPager.currentItem = mPager.currentItem - 1
+//        }
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

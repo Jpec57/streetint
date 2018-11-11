@@ -63,16 +63,15 @@ fun computeTimeForWorkout(exo: MutableList<Exercise>): Int
     return (totalEstimatedTime)
 }
 
-@Entity(tableName = "workouts")
+@Entity(tableName = "workouts", primaryKeys = ["timestamp", "name"])
 data class Workout(
-    @PrimaryKey var name: String,
+    @ColumnInfo(name = "timestamp") var timestamp: String="",
+    @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "img") var img: Int = 0,
     @ColumnInfo(name = "cycle") var cycle: Boolean = false,
 
     @ColumnInfo(name = "description") var description: String = "No description given",
     @TypeConverters(ExerciseListConverter::class) @ColumnInfo(name = "exercises") var exercises: ArrayList<Exercise>,
-    @ColumnInfo(name = "saved") var saved: Boolean = false,
-
     @TypeConverters(ListConverter::class) @ColumnInfo(name = "material") var material: ArrayList<String> = getDifferentMusclesOrMaterial(
         exercises,
         false
@@ -82,7 +81,7 @@ data class Workout(
     ),
     @ColumnInfo(name = "time") var time: Int = computeTimeForWorkout(exercises)
 ) : Serializable {
-    constructor() : this("None", 0, false, "Empty", arrayListOf<Exercise>(Exercise("Empty")))
+    constructor() : this("123456", "None", 0, false, "Empty", arrayListOf<Exercise>(Exercise("Empty")))
 }
 
 

@@ -44,7 +44,6 @@ class ChoosePremadeWorkoutAdapter(private val context: Context, private val allW
         holder.baseLayout.time.text = setTime(allWorkouts[position].time)
         holder.baseLayout.setOnClickListener {
             val intent = Intent(context, ShowWorkoutContentActivity::class.java)
-//            intent.putExtra("workout", allWorkouts[position])
             val bundle = Bundle()
             bundle.putSerializable("workout", allWorkouts[position])
             intent.putExtras(bundle)

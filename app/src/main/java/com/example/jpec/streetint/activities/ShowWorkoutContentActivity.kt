@@ -28,7 +28,6 @@ class ShowWorkoutContentActivity : Activity() {
 
     private lateinit var mDbWorkerThread: DbWorkerThread
     private var mDb: WorkoutDatabase? = null
-    private val mUiHandler = Handler()
 
 
 
@@ -36,9 +35,8 @@ class ShowWorkoutContentActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_workout_content)
         setWorkoutAdapter()
-        setOnClickButtons()
         setDatabase()
-
+        setOnClickButtons()
     }
 
     private fun setDatabase()
@@ -47,17 +45,6 @@ class ShowWorkoutContentActivity : Activity() {
         mDbWorkerThread.start()
 
         mDb = WorkoutDatabase.getInstance(this)
-    }
-
-
-    private fun fetchWorkoutsFromDb()
-    {
-        val task = Runnable {
-            val workouts = mDb?.workoutDao()?.getAll()
-            bindDataWithUI(workouts)
-        }
-
-        mDbWorkerThread.postTask(task)
     }
 
     private fun bindDataWithUI(workouts: List<Workout>?)
@@ -78,18 +65,56 @@ class ShowWorkoutContentActivity : Activity() {
     private fun insertWorkoutInDb(workout: Workout)
     {
         val task = Runnable {
-            mDb?.workoutDao()?.insert(workout)
-            bindDataWithUI(mDb?.workoutDao()?.getAll())
+            mDb?.workoutDao()?.insertWorkout(workout)
+            bindDataWithUI(mDb?.workoutDao()?.getAllWorkouts())
         }
+        while (!mDbWorkerThread.ready) ;
         mDbWorkerThread.postTask(task)
     }
 
     private fun deleteWorkoutInDb(workout: Workout)
     {
         val task = Runnable {
-            mDb?.workoutDao()?.delete(workout.name)
-            bindDataWithUI(mDb?.workoutDao()?.getAll())
+            mDb?.workoutDao()?.deleteWorkout(workout.name)
+            bindDataWithUI(mDb?.workoutDao()?.getAllWorkouts())
         }
+        while (!mDbWorkerThread.ready) ;
+        mDbWorkerThread.postTask(task)
+    }
+
+    private fun testIfWorkoutInDb()
+    {
+        val task = Runnable {
+            val w = mDb?.workoutDao()?.getInitWorkout(workout.name)
+            if(w != null)
+            {
+                save.setImageResource(android.R.drawable.btn_star_big_on)
+            }
+            else
+            {
+                save.setImageResource(android.R.drawable.btn_star_big_off)
+            }
+        }
+        while (!mDbWorkerThread.ready) ;
+        mDbWorkerThread.postTask(task)
+    }
+
+    private fun insertOrDeleteWorkoutInDb()
+    {
+        val task = Runnable {
+            val w = mDb?.workoutDao()?.getInitWorkout(workout.name)
+            if(w != null)
+            {
+                save.setImageResource(android.R.drawable.btn_star_big_off)
+                deleteWorkoutInDb(workout)
+            }
+            else
+            {
+                save.setImageResource(android.R.drawable.btn_star_big_on)
+                insertWorkoutInDb(workout)
+            }
+        }
+        while (!mDbWorkerThread.ready) ;
         mDbWorkerThread.postTask(task)
     }
 
@@ -101,59 +126,26 @@ class ShowWorkoutContentActivity : Activity() {
 
     private fun setOnClickButtons()
     {
+        testIfWorkoutInDb()
         save.setOnClickListener {
-            if(workout.saved)
-            {
-                save.setImageResource(android.R.drawable.btn_star_big_off)
-                deleteWorkoutInDb(workout)
-            }
-            else
-            {
-                save.setImageResource(android.R.drawable.btn_star_big_on)
-                insertWorkoutInDb(workout)
-            }
-            workout.saved = !workout.saved
+            insertOrDeleteWorkoutInDb()
         }
         edit.setOnClickListener { Toast.makeText(this, "You want to edit this workout", Toast.LENGTH_LONG).show() }
         start.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable("workout", workout)
             val intent = Intent(this, InWorkoutActivity::class.java)
-            intent.putExtra("workout", workout)
+            intent.putExtras(bundle)
             startActivity(intent)
         }
     }
 
     private fun setWorkoutAdapter()
     {
-        val exercises : ArrayList<Exercise> = arrayListOf(
-            Exercise(name = "Lower OAP"),
-            Exercise(name = "Back Lever", isStatic = true, material = arrayListOf("Pull up bar")),
-            Exercise(name = "Dips", material = arrayListOf("Parallel bars", "Pull up bar")))
-        workout = Workout(name = "First workout", exercises = exercises)
-
-
-//        val bundle = intent.extras
-//        var nullableWorkout : Workout?
-//        if (bundle != null)
-//        {
-//            nullableWorkout = bundle.getParcelable("workout")
-//            if (nullableWorkout != null)
-//            {
-//                workout = nullableWorkout
-//            }
-//        }
         val intent = this.intent
         val bundle = intent.extras
-        var nullableWorkout : Workout?
         if (bundle != null)
-        {
-            nullableWorkout = bundle.getSerializable("workout") as Workout
-            if (nullableWorkout != null)
-            {
-                workout = nullableWorkout
-            }
-        }
-        Log.e("Jpec", workout.name)
-        Toast.makeText(this, "Test ${workout.name}", Toast.LENGTH_LONG).show()
+            workout = bundle.getSerializable("workout") as Workout
 
         time.text = "${workout.time / 60}"
         workout_desc.text = workout.description

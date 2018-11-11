@@ -38,6 +38,11 @@
     <string name="start">Start</string>
     <string name="quit">Quit</string>
     <string name="done">Done</string>
+    <string name="end">END</string>
+    <string name="exercises">Exercises</string>
+    <string name="chart">Chart</string>
+    <string name="_5">+5%</string>
+    <string name="points">points</string>
 
 
 </resources>
