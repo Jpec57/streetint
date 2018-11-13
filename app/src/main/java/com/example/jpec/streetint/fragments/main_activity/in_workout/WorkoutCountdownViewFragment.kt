@@ -116,12 +116,12 @@ class WorkoutCountdownViewFragment : Fragment() {
 
             setRepSliderContent(0)
             slider.setOnTouchListener(object : OnSwipeTouchListener(activity!!.applicationContext){
-                override fun onSwipeLeft(velocityX: Float) {
-                    setRepSliderContent(calibrateVelocity(velocityX), true)
+                override fun onSwipeLeft(velocityX: Float, distanceX: Float) {
+                    setRepSliderContent(calibrateVelocity(velocityX, distanceX), true)
                 }
 
-                override fun onSwipeRight(velocityX: Float) {
-                    setRepSliderContent(calibrateVelocity(velocityX))
+                override fun onSwipeRight(velocityX: Float, distanceX: Float) {
+                    setRepSliderContent(calibrateVelocity(velocityX, distanceX))
                 }
 
             })
@@ -174,7 +174,7 @@ class WorkoutCountdownViewFragment : Fragment() {
         mDbWorkerThread.postTask(task)
     }
 
-    private fun calibrateVelocity(velocityX: Float): Int
+    private fun calibrateVelocity(velocityX: Float, distanceX: Float): Int
     {
         val calibratedVelocity = (velocityX / 50).absoluteValue.toInt()
         if (calibratedVelocity > 10)
@@ -208,10 +208,10 @@ class WorkoutCountdownViewFragment : Fragment() {
             end = true
             endCountDown()
         }
-//        first.setOnClickListener { setRepSliderContent(2) }
-//        second.setOnClickListener { setRepSliderContent(1) }
-//        fourth.setOnClickListener { setRepSliderContent(1, true) }
-//        fifth.setOnClickListener { setRepSliderContent(2, true) }
+        first.setOnClickListener { setRepSliderContent(2) }
+        second.setOnClickListener { setRepSliderContent(1) }
+        fourth.setOnClickListener { setRepSliderContent(1, true) }
+        fifth.setOnClickListener { setRepSliderContent(2, true) }
     }
 
     override fun onDestroy() {

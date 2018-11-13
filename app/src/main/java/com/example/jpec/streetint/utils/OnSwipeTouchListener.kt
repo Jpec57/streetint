@@ -17,12 +17,12 @@ abstract class OnSwipeTouchListener(context: Context) : OnTouchListener {
         gestureDetector = GestureDetector(context, GestureListener())
     }
 
-    open fun onSwipeLeft(velocityX: Float = 0f)
+    open fun onSwipeLeft(velocityX: Float = 0f, distanceX: Float)
     {
 
     }
 
-    open fun onSwipeRight(velocityX: Float = 0f)
+    open fun onSwipeRight(velocityX: Float = 0f, distanceX: Float)
     {
 
     }
@@ -40,66 +40,17 @@ abstract class OnSwipeTouchListener(context: Context) : OnTouchListener {
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
             val distanceX = e2.x - e1.x
             val distanceY = e2.y - e1.y
-            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > 100 && Math.abs(
+            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > 10 && Math.abs(
                     velocityX
                 ) > 100
             ) {
                 if (distanceX > 0)
-                    onSwipeRight(velocityX)
+                    onSwipeRight(velocityX, distanceX)
                 else
-                    onSwipeLeft(velocityX)
+                    onSwipeLeft(velocityX, distanceX)
                 return true
             }
             return false
         }
     }
 }
-
-/*
-
-class OnSwipeTouchListener(context: Context) : OnTouchListener {
-
-    private val gestureDetector: GestureDetector
-
-    init {
-        gestureDetector = GestureDetector(context, GestureListener())
-    }
-
-    fun onSwipeLeft() {}
-
-    fun onSwipeRight() {}
-
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event)
-    }
-
-    private inner class GestureListener : SimpleOnGestureListener() {
-
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            val distanceX = e2.x - e1.x
-            val distanceY = e2.y - e1.y
-            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(
-                    velocityX
-                ) > SWIPE_VELOCITY_THRESHOLD
-            ) {
-                if (distanceX > 0)
-                    onSwipeRight()
-                else
-                    onSwipeLeft()
-                return true
-            }
-            return false
-        }
-
-        companion object {
-
-            private val SWIPE_DISTANCE_THRESHOLD = 100
-            private val SWIPE_VELOCITY_THRESHOLD = 100
-        }
-    }
-}
- */
