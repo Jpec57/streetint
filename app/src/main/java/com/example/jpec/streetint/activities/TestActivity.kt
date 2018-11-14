@@ -11,6 +11,7 @@ import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.saveTo
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_test.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -100,7 +101,6 @@ class TestActivity : Activity() {
                     println("loadPost:onCancelled ${databaseError.toException()}")
                 }
             })
-
 /*
         doAsync{
             ("https://drive.google.com/uc?export=download&" +
