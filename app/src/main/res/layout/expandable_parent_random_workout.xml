@@ -2,16 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              android:layout_width="match_parent"
                                              android:layout_height="wrap_content"
-                                             android:background="@drawable/round_corner_button"
+                                             android:layout_margin="10sp"
                                              xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_button"
             android:id="@+id/expand">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
+                android:layout_margin="5sp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                app:layout_constrainedWidth="true"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:id="@+id/option_name"
@@ -34,7 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/selected"
-                android:text="@string/app_name"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                app:layout_constrainedWidth="true"
                 android:textStyle="italic"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/guideline_vertical"

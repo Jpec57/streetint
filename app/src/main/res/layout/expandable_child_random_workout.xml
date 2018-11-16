@@ -3,6 +3,9 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="wrap_content"
                                              android:minHeight="50sp"
+                                             android:layout_marginStart="5sp"
+                                             android:layout_marginEnd="5sp"
+                                             android:background="@color/grey1"
                                              android:id="@+id/option_layout"
                                              xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
