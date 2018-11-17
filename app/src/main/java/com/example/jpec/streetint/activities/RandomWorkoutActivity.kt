@@ -1,6 +1,7 @@
 package com.example.jpec.streetint.activities
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -17,14 +18,16 @@ import kotlinx.android.synthetic.main.activity_random_workout.*
 import kotlin.random.Random
 
 class RandomWorkoutActivity : Activity() {
-    val TAG = "JPECJPEC"
+    private lateinit var adapterMap: MutableMap<String, ArrayList<String>>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var randomAdapter: RandomWorkoutAdapter
 
     private lateinit var mDbRef : DatabaseReference
     var chosenDifficultyBottom = 0.3
     var chosenDifficultyTop = 0.5
+    var difficulty = "Beginner"
 
     var numberOfExercise = 0
     var maxTime = 120
@@ -35,40 +38,104 @@ class RandomWorkoutActivity : Activity() {
     var rest = 90
 
     var targetedMuscles = arrayListOf<String>()
-    var availableMaterial = arrayListOf("None")
+    var availableMaterial = arrayListOf<String>()
     var correspondingExercises = mutableMapOf<String, ArrayList<Exercise>>()
-    var exercisesMuscle = arrayListOf<Exercise>()
     private lateinit var randomWorkout: Workout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_random_workout)
         setAdapter()
-        setPref()
-        setGoal()
-        fetchExercisesFirebase()
+        setOnClickButtons()
+    }
+
+    private fun setOnClickButtons()
+    {
+        start.setOnClickListener {
+            setPref()
+        }
     }
 
     private fun setPref()
     {
-        targetedMuscles.add("Back")
-        availableMaterial.add("Pull Up Bar")
-
-//        targetedMuscles.add("Chest")
-//        availableMaterial.add("Parallel Bar")
-        goal = "strength"
+        //TODO give a nb of exercises to do
         numberOfExercise = 4
+        try {
+            for (category in adapterMap.keys)
+            {
+                    when (category)
+                    {
+                        "Goal" -> goal = getSelected(category, adapterMap[category]!!, false)[0]
+                        "Difficulty"-> difficulty = getSelected(category, adapterMap[category]!!, false)[0]
+                        "Targeted muscles" -> targetedMuscles = getSelected(category, adapterMap[category]!!, true)
+                        "Available materials"-> availableMaterial = getSelected(category, adapterMap[category]!!, true)
+                        else -> Log.e("HELIX", "Not a real category")
+                    }
+            }
+            setGoal()
+            setDifficulty()
+            fetchExercisesFirebase()
+
+        }catch (e : java.lang.Exception)
+        {
+            showToast("${e.message}")
+        }
+    }
+
+    private fun getSelected(category: String, arr: ArrayList<String>, multiple: Boolean) : ArrayList<String>
+    {
+        val selectedList = randomAdapter.selectedMap
+        val selectedListForCategory = ArrayList<String>()
+        for (item in arr)
+        {
+            if (selectedList[item]!!)
+            {
+                selectedListForCategory.add(item)
+                if (!multiple)
+                    return selectedListForCategory
+            }
+        }
+        if (selectedListForCategory.size == 0)
+            throw Exception("$category is not correctly set")
+        return selectedListForCategory
+    }
+
+    private fun setDifficulty()
+    {
+        when(difficulty)
+        {
+            "Beginner" -> {
+                chosenDifficultyBottom = 0.0
+                chosenDifficultyTop = 0.2
+            }
+            "Rookie" -> {
+                chosenDifficultyBottom = 0.2
+                chosenDifficultyTop = 0.4
+            }
+            "Intermediate" -> {
+                chosenDifficultyBottom = 0.4
+                chosenDifficultyTop = 0.6
+            }
+            "Seasoned" -> {
+                chosenDifficultyBottom = 0.6
+                chosenDifficultyTop = 0.8
+            }
+            else -> {
+                chosenDifficultyBottom = 0.8
+                chosenDifficultyTop = 1.0
+            }
+        }
     }
 
     private fun setGoal()
     {
         when(goal){
-            "strength" -> {
+            "Strength" -> {
                 rest = 90
                 serie = 5
                 reps = 5
             }
-            "cardio" -> {
+            "Cardio" -> {
                 rest = 25
                 serie = 6
                 reps = 15
@@ -87,7 +154,7 @@ class RandomWorkoutActivity : Activity() {
             correspondingExercises[targetedMuscles[0]]!![Random.nextInt(0,correspondingExercises[targetedMuscles[0]]!!.size - 1)]
         ))
         var tmpExercise : Exercise
-        while (randomWorkout.time <= maxTime && randomWorkout.exercises.size < numberOfExercise)
+        while (randomWorkout.exercises.size < numberOfExercise) //randomWorkout.time <= maxTime &&
         {
             for (muscle in targetedMuscles)
             {
@@ -96,6 +163,11 @@ class RandomWorkoutActivity : Activity() {
                 randomWorkout.exercises.add(tmpExercise)
             }
         }
+        val intent = Intent(this, ShowWorkoutContentActivity::class.java)
+        val bundle = Bundle()
+        bundle.putSerializable("workout", randomWorkout)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 
     private fun fetchExercisesFirebase()
@@ -108,6 +180,7 @@ class RandomWorkoutActivity : Activity() {
         query.addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    var nb = 0
                     var exercisesText = ""
                     for (item in dataSnapshot.children)
                     {
@@ -142,12 +215,20 @@ class RandomWorkoutActivity : Activity() {
                                         reps = reps,
                                         rest = rest))
                                     exercisesText += item
+                                    nb++
                                 }
                             }
                             it++
                         }
                     }
-                    setRandomWorkout()
+                    if (nb == 0)
+                    {
+                        showToast("There are no exercises matching your criteria")
+                    }
+                    else
+                    {
+                        setRandomWorkout()
+                    }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -159,24 +240,22 @@ class RandomWorkoutActivity : Activity() {
     private fun insertInCorrespondingExerciseList(key: String, exercise: Exercise)
     {
         if (correspondingExercises.containsKey(key))
-        {
             correspondingExercises[key]!!.add(exercise)
-        }
         else
-        {
             correspondingExercises[key] = arrayListOf(exercise)
-        }
     }
 
     private fun setAdapter()
     {
-        val adapterMap = mutableMapOf<String, ArrayList<String>>()
+        adapterMap = mutableMapOf()
         adapterMap["Goal"] = arrayListOf("Strength", "Gain mass", "Cardio")
         adapterMap["Difficulty"] = arrayListOf("Beginner", "Rookie", "Intermediate", "Seasoned", "Elite")
         adapterMap["Targeted muscles"] = arrayListOf("Back", "Biceps", "Triceps", "Chest", "Legs", "Abs", "Shoulders")
-        adapterMap["Available materials"] = arrayListOf("Parallel Bars", "Pull Up Bar", "Rubber", "Kettlebell", "Weight")
+        adapterMap["Available materials"] = arrayListOf("None", "Parallel Bars", "Pull Up Bar", "Rubber", "Kettlebell", "Weight")
         viewManager = LinearLayoutManager(this)
-        viewAdapter = RandomWorkoutAdapter(this, adapterMap)
+        randomAdapter = RandomWorkoutAdapter(this, adapterMap)
+
+        viewAdapter = randomAdapter
 
         recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
             // use this setting to improve performance if you know that changes

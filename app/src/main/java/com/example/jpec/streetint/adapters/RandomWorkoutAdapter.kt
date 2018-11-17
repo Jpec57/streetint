@@ -17,7 +17,7 @@ import java.lang.Exception
 
 class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap<String, ArrayList<String>>?) : RecyclerView.Adapter<RandomWorkoutAdapter.MyViewHolder>()
 {
-    private val selectedMap = mutableMapOf<String, Boolean>()
+    internal val selectedMap = mutableMapOf<String, Boolean>()
     private lateinit var parentView: ViewGroup
 
 
@@ -80,5 +80,4 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
         val previousVal = selectedMap[item] as Boolean
         selectedMap[item] = !previousVal
     }
-
 }
