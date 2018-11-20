@@ -15,6 +15,10 @@ import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.fragment_end_of_workout_content.*
 import java.lang.Exception
+import com.jjoe64.graphview.series.LineGraphSeries
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+
 
 class EndOfWorkoutContentFragment : Fragment() {
     private lateinit var ref: EndOfWorkoutActivity
@@ -37,9 +41,6 @@ class EndOfWorkoutContentFragment : Fragment() {
 
     private fun setWorkoutAdapter(view: View)
     {
-
-//        val workoutHelper = Workout(name = "Hum", exercises = arrayListOf<Exercise>(Exercise("First")))
-//        val help = listOf<Workout>(workoutHelper)
         workouts = ref.workouts
         viewManager = LinearLayoutManager(activity!!.applicationContext)
         viewAdapter = EndOfWorkoutContentAdapter(activity!!.applicationContext, workouts)
@@ -68,6 +69,19 @@ class EndOfWorkoutContentFragment : Fragment() {
         }
     }
 
+    private fun getRepsSum(graphPoint: LineGraphSeries<DataPoint>)
+    {
+        var i = 0.0
+        for (w in workouts!!)
+        {
+            var s = 0
+            for (e in w.exercises)
+                s += e.reps
+            graphPoint.appendData(DataPoint(i, s.toDouble()), true, 10)
+            i += 1
+        }
+    }
+
     private fun setChart()
     {
         var string = ""
@@ -82,6 +96,9 @@ class EndOfWorkoutContentFragment : Fragment() {
                 string += "\n"
             }
         }
-        textView.text = string
+//        summary.text = string
+        val series = LineGraphSeries<DataPoint>()
+        getRepsSum(series)
+        graph.addSeries(series)
     }
 }

@@ -1,20 +1,28 @@
 package com.example.jpec.streetint.activities
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Window
 import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.RandomWorkoutAdapter
 import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
+import com.example.jpec.streetint.models.computeTimeForWorkout
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_random_workout.*
+import kotlinx.android.synthetic.main.dialog_choose_time_duration.*
+import org.jetbrains.anko.toast
 import kotlin.random.Random
 
 class RandomWorkoutActivity : Activity() {
@@ -51,9 +59,28 @@ class RandomWorkoutActivity : Activity() {
 
     private fun setOnClickButtons()
     {
+        changeTime.text = maxTime.toString()
         start.setOnClickListener {
             setPref()
         }
+        changeTime.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setContentView(R.layout.dialog_choose_time_duration)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            dialog.close.setOnClickListener {
+                maxTime = dialog.numberPicker.value
+                changeTime.text = maxTime.toString()
+                dialog.dismiss()
+            }
+            dialog.numberPicker.minValue = 5
+            dialog.numberPicker.maxValue = 120
+            dialog.numberPicker.value = 60
+            dialog.show()
+        }
+
     }
 
     private fun setPref()
@@ -154,7 +181,8 @@ class RandomWorkoutActivity : Activity() {
             correspondingExercises[targetedMuscles[0]]!![Random.nextInt(0,correspondingExercises[targetedMuscles[0]]!!.size - 1)]
         ))
         var tmpExercise : Exercise
-        while (randomWorkout.exercises.size < numberOfExercise) //randomWorkout.time <= maxTime &&
+        randomWorkout.time = computeTimeForWorkout(randomWorkout.exercises)
+        while (randomWorkout.time / 60 <= maxTime && randomWorkout.exercises.size < numberOfExercise)
         {
             for (muscle in targetedMuscles)
             {
@@ -162,7 +190,13 @@ class RandomWorkoutActivity : Activity() {
                 tmpExercise = exercisesList!![Random.nextInt(0,exercisesList.size - 1)]
                 randomWorkout.exercises.add(tmpExercise)
             }
+            randomWorkout.time = computeTimeForWorkout(randomWorkout.exercises)
         }
+        randomWorkout.time = computeTimeForWorkout(randomWorkout.exercises)
+        Log.e("HELIX", "${randomWorkout.exercises.toString()}")
+        randomWorkout.exercises.sortByDescending { it.difficulty }
+        Log.e("HELIX", "${randomWorkout.exercises.toString()}")
+
         val intent = Intent(this, ShowWorkoutContentActivity::class.java)
         val bundle = Bundle()
         bundle.putSerializable("workout", randomWorkout)
@@ -208,9 +242,13 @@ class RandomWorkoutActivity : Activity() {
                                 musclesList.add(muscle.getValue(String::class.java)!!)
                                 if (targetedMuscles[it] == muscle.getValue(String::class.java))
                                 {
+                                    val diff = item.child("difficulty").getValue(Float::class.java) ?: 0.0f
+                                    val isStatic = item.child("hold").getValue(Boolean::class.java) ?: false
                                     insertInCorrespondingExerciseList(targetedMuscles[it],Exercise(name= item.key!!,
                                         muscles = musclesList,
                                         material = materialList,
+                                        difficulty = diff,
+                                        isStatic = isStatic,
                                         series = serie,
                                         reps = reps,
                                         rest = rest))
@@ -245,6 +283,20 @@ class RandomWorkoutActivity : Activity() {
             correspondingExercises[key] = arrayListOf(exercise)
     }
 
+    private fun getPrefForRandom(): ArrayList<String>
+    {
+        val muscles = arrayListOf("Back", "Biceps")
+        val material = arrayListOf("Pull Up Bar", "Parallel Bars")
+        val pref = ArrayList<String>()
+        pref.add("Strength")
+        pref.add("Seasoned")
+        for (m in muscles)
+            pref.add(m)
+        for (m in material)
+            pref.add(m)
+        return pref
+    }
+
     private fun setAdapter()
     {
         adapterMap = mutableMapOf()
@@ -252,8 +304,9 @@ class RandomWorkoutActivity : Activity() {
         adapterMap["Difficulty"] = arrayListOf("Beginner", "Rookie", "Intermediate", "Seasoned", "Elite")
         adapterMap["Targeted muscles"] = arrayListOf("Back", "Biceps", "Triceps", "Chest", "Legs", "Abs", "Shoulders")
         adapterMap["Available materials"] = arrayListOf("None", "Parallel Bars", "Pull Up Bar", "Rubber", "Kettlebell", "Weight")
+
         viewManager = LinearLayoutManager(this)
-        randomAdapter = RandomWorkoutAdapter(this, adapterMap)
+        randomAdapter = RandomWorkoutAdapter(this, adapterMap, getPrefForRandom())
 
         viewAdapter = randomAdapter
 

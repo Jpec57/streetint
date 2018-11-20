@@ -15,7 +15,7 @@ import com.example.jpec.streetint.R
 import kotlinx.android.synthetic.main.expandable_parent_random_workout.view.*
 import java.lang.Exception
 
-class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap<String, ArrayList<String>>?) : RecyclerView.Adapter<RandomWorkoutAdapter.MyViewHolder>()
+class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap<String, ArrayList<String>>?, val pref: ArrayList<String>) : RecyclerView.Adapter<RandomWorkoutAdapter.MyViewHolder>()
 {
     internal val selectedMap = mutableMapOf<String, Boolean>()
     private lateinit var parentView: ViewGroup
@@ -31,7 +31,7 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
         {
             for (item in choices[key]!!)
             {
-                selectedMap[item] = false
+                selectedMap[item] = pref.contains(item)
             }
         }
         parentView = parent
@@ -44,7 +44,7 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
 
         val viewManager = LinearLayoutManager(context)
         val viewAdapter = RandomWorkoutInsideAdapter(holder.baseLayout.selected, choices[choices.keys.elementAt(position)],
-            choices!!.keys.elementAt(position), this, position > 1)
+            choices.keys.elementAt(position), this, position > 1)
 
         val recycler = holder.baseLayout.recyclerInside
         recycler.apply {
@@ -56,6 +56,7 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
+        setPreviewTextAtPos(holder.baseLayout.selected, choices.keys.elementAt(position))
         holder.baseLayout.expand.setOnClickListener {
             holder.baseLayout.recyclerInside.visibility = if (holder.baseLayout.recyclerInside.visibility == View.VISIBLE) View.GONE else View.VISIBLE
         }

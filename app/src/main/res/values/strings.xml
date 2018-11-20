@@ -43,6 +43,10 @@
     <string name="chart">Chart</string>
     <string name="_5">+5%</string>
     <string name="points">points</string>
+    <string name="_60">60</string>
+    <string name="level">Level</string>
+    <string name="progression">Progression</string>
+    <string name="progress">Progress</string>
 
 
 </resources>

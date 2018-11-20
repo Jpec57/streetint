@@ -3,6 +3,7 @@ package com.example.jpec.streetint.adapters
 import android.content.Context
 import android.graphics.Color
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class EndOfWorkoutContentAdapter(private val context: Context, private val w: Li
         val percent : Int = (exo.reps / previousNbReps * 100).toInt() - 100
         val percentString = if (percent > 0) "+$percent%" else "$percent%"
         holder.baseLayout.percent.text = percentString
-        holder.baseLayout.isPositive.setBackgroundColor(if (percent > 0) Color.GREEN else Color.RED)
+        holder.baseLayout.isPositive.setBackgroundColor(if (percent > 0) ContextCompat.getColor(context, R.color.green)  else ContextCompat.getColor(context, R.color.red))
         holder.baseLayout.exo_name.text = exo.name
         holder.baseLayout.exo_reps.text = exoRep
         holder.baseLayout.exo_reps_moy.text = exoRepMoy

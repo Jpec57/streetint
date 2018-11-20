@@ -18,6 +18,9 @@ interface WorkoutDAO {
     @Query("SELECT * from workouts where name =:name")
     fun getWorkout(name: String) : List<Workout>
 
+    @Query("SELECT * from workouts where name =:name LIMIT :limit")
+    fun getWorkoutWithLimit(name: String, limit: Int) : List<Workout>
+
     @Query("SELECT * from workouts where name=:name order by timestamp limit 1")
     fun getInitWorkout(name: String) : Workout
 

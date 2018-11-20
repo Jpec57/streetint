@@ -51,7 +51,6 @@ class ChoosePremadeWorkoutAdapter(private val context: Context, private val allW
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = allWorkouts.size
 
     private fun setMaterial(tab: MutableList<String>) : String

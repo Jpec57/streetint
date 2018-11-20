@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/blueDark"
-            app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline_horizontal"
     />
-    <ImageView
+
+    <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:contentDescription="@string/app_name"
-            android:id="@+id/timeOrNb"
-            android:src="@drawable/time"
-            android:layout_marginBottom="5sp"
+            android:background="@drawable/timer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horizontal"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_60"
+            android:textColor="@color/grey1"
+            android:textSize="30sp"
+            android:id="@+id/changeTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline_horizontal"
     />
@@ -34,7 +44,22 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2"/>
+            app:layout_constraintGuide_percent="0.25"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Random workout generator"
+            android:gravity="center_horizontal"
+
+            app:layout_constrainedWidth="true"
+            android:textColor="@color/grey1"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horizontal"
+    />
 
     <android.support.constraint.Guideline
             android:id="@+id/guideline_horizontal"
@@ -59,7 +84,7 @@
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/start"
-            android:background="@drawable/quick_chrono_button"
+            android:background="@drawable/button_dark_blue"
             android:text="@string/start"
             android:textColor="@color/grey1"
             app:layout_constraintVertical_bias="0.9"

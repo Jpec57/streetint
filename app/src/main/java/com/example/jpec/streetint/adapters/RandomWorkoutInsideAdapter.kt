@@ -27,6 +27,12 @@ class RandomWorkoutInsideAdapter(val textView: TextView, private val choices: Li
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.baseLayout.options.text = choices!![position]
+        if (randomWorkoutAdapter.selectedMap[choices[position]]!!)
+        {
+            holder.baseLayout.chosen.visibility = View.VISIBLE
+            oldSelectedView = holder.baseLayout.chosen
+            oldSelected = position
+        }
         holder.baseLayout.option_layout.setOnClickListener {
             if (!multiple)
             {

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/end"
             android:text="@string/end"
-            android:background="@drawable/quick_chrono_button"
+            android:background="@drawable/button_dark_blue"
             android:textColor="@color/grey1"
             app:layout_constraintTop_toBottomOf="@id/_points"
             app:layout_constraintBottom_toBottomOf="parent"

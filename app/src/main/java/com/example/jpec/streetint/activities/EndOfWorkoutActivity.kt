@@ -38,7 +38,7 @@ class EndOfWorkoutActivity : FragmentActivity() {
         // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         mPager.adapter = pagerAdapter
-        mPager.currentItem = 1
+        mPager.currentItem = 0
         setDatabase()
     }
 
@@ -67,14 +67,15 @@ class EndOfWorkoutActivity : FragmentActivity() {
 
         mDb = WorkoutDatabase.getInstance(this)
         val intent = intent
-        getWorkoutsInDb(intent.getStringExtra("name"))
+        //TODO
+        val n = intent.getStringExtra("name")
+        getWorkoutsInDb("Test")
     }
 
     private fun getWorkoutsInDb(name: String)
     {
         val task = Runnable {
-            //TODO change name with what is received
-            workouts = mDb?.workoutDao()?.getWorkout(name)
+            workouts = mDb?.workoutDao()?.getWorkoutWithLimit(name, 10)
             workouts?.let {
                 workout = it[it.size - 1]
             }
