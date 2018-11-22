@@ -47,6 +47,15 @@
     <string name="level">Level</string>
     <string name="progression">Progression</string>
     <string name="progress">Progress</string>
+    <string name="chest">chest</string>
+    <string name="shoulder">shoulder</string>
+    <string name="abs">abs</string>
+    <string name="back">back</string>
+    <string name="biceps">biceps</string>
+    <string name="triceps">triceps</string>
+    <string name="penis">penis</string>
+    <string name="trapezius">trapezius</string>
+    <string name="leg">leg</string>
 
 
 </resources>

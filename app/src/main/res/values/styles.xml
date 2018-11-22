@@ -15,4 +15,50 @@
         <item name="android:fontFamily">@font/cairo</item>
     </style>
 
+
+    <!-- ANATOMY SVG-->
+    <style name="WorkingMuscles">
+        <item name="triceps">@color/red</item>
+        <item name="shoulders">@color/red</item>
+        <item name="abs">@color/blueDark</item>
+        <item name="trapezius">@color/red</item>
+        <item name="chest">@color/red</item>
+        <item name="quadri">@color/red</item>
+        <item name="hamstring">@color/red</item>
+        <item name="butt">@color/red</item>
+        <item name="back">@color/red</item>
+        <item name="biceps">@color/red</item>
+        <item name="penis">@color/red</item>
+    </style>
+
+    <style name="triceps">
+        <item name="triceps">@color/red</item>
+    </style>
+    <style name="penis">
+        <item name="penis">@color/red</item>
+    </style>
+    <style name="biceps">
+        <item name="biceps">@color/red</item>
+    </style>
+    <style name="back">
+        <item name="back">@color/red</item>
+    </style>
+    <style name="leg">
+        <item name="quadri">@color/red</item>
+        <item name="hamstring">@color/red</item>
+        <item name="butt">@color/red</item>
+    </style>
+    <style name="chest">
+        <item name="chest">@color/red</item>
+    </style>
+    <style name="shoulders">
+        <item name="shoulders">@color/red</item>
+    </style>
+    <style name="trapezius">
+        <item name="trapezius">@color/red</item>
+    </style>
+    <style name="abs">
+        <item name="abs">@color/red</item>
+    </style>
+
 </resources>

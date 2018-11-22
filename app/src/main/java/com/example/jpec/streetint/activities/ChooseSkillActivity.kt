@@ -25,8 +25,35 @@ class ChooseSkillActivity : Activity()
     private fun setAdapter()
     {
         val allSkills = mutableMapOf<String, ArrayList<Workout>>()
-        allSkills["Human Flag"] = arrayListOf(Workout(name = "Test",exercises = arrayListOf(Exercise("None"))))
-        allSkills["V-Sit"] = arrayListOf(Workout(name = "Test",exercises = arrayListOf(Exercise("None"))))
+        allSkills["Human Flag"] = arrayListOf(
+            Workout(name = "Test", exercises = arrayListOf(Exercise("None"))))
+        allSkills["V-Sit"] = arrayListOf(
+            Workout(name = "V-Sit - Level 1", exercises = arrayListOf(
+                Exercise("Compression Hold", series = 4, reps = 30, isStatic = true, rest= 60),
+                Exercise("Tuck L-Sit Lift", series = 4, reps = 12, isStatic = true, rest = 60),
+                Exercise("Crunch", series = 4, reps = 20, isStatic = true, rest = 60),
+                Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25))),
+            Workout(name = "V-Sit - Level 2", exercises = arrayListOf(
+                Exercise("Tuck L-Sit", series = 4, reps = 30, isStatic = true, rest= 60),
+                Exercise("Tuck L-Sit Lift", series = 4, reps = 12, rest = 60),
+                Exercise("Compression Hold", series = 4, reps = 25, isStatic = true, rest = 60),
+                Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25))),
+            Workout(name = "V-Sit - Level 3", exercises = arrayListOf(
+                Exercise("L-Sit", series = 4, reps = 30, isStatic = true, rest= 60),
+                Exercise("Tuck L-Sit", series = 4, reps = 15, isStatic = true, rest = 60),
+                Exercise("Tuck L-Sit Lift", series = 4, reps = 12, rest = 60),
+                Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25))),
+            Workout(name = "V-Sit - Level 4", exercises = arrayListOf(
+                Exercise("Tuck V-Sit", series = 4, reps = 30, isStatic = true, rest= 60),
+                Exercise("L-Sit", series = 4, reps = 20, isStatic = true, rest = 60),
+                Exercise("Tuck L-Sit", series = 4, reps = 10, isStatic = true, rest = 60),
+                Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25))),
+            Workout(name = "V-Sit - Level 5", exercises = arrayListOf(
+                Exercise("V-Sit", series = 4, reps = 30, isStatic = true, rest= 60),
+                Exercise("Tuck V-Sit", series = 4, reps = 15, isStatic = true, rest = 60),
+                Exercise("L-Sit", series = 4, reps = 20, isStatic = true, rest = 60),
+                Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25)))
+        )
         allSkills["Handstand"] = arrayListOf(Workout(name = "Test",exercises = arrayListOf(Exercise("None"))))
         allSkills["Muscle Up"] = arrayListOf(Workout(name = "Test",exercises = arrayListOf(Exercise("None"))))
         allSkills["Hefesto"] = arrayListOf(Workout(name = "Test",exercises = arrayListOf(Exercise("None"))))

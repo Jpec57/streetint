@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ChooseSkillProgressionAdapter
 
-class ChooseSkillProgressionLvl : Activity() {
+class ChooseSkillProgressionLvlActivity : Activity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager

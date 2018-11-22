@@ -2,14 +2,13 @@ package com.example.jpec.streetint.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.activities.ChooseSkillProgressionLvl
+import com.example.jpec.streetint.activities.ChooseSkillProgressionLvlActivity
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_choose_skill.view.*
 
@@ -31,9 +30,11 @@ class ChooseSkillAdapter(val context: Context, private val allSkills: MutableMap
         val key = skillNames.elementAt(position)
         holder.baseLayout.skillName.text = key
         holder.baseLayout.chooseSkill.setOnClickListener {
-            context.startActivity(Intent(context, ChooseSkillProgressionLvl::class.java))
+            val intent = Intent(context, ChooseSkillProgressionLvlActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("workout", allSkills[key])
+            intent.putExtras(bundle)
+            context.startActivity(intent)
         }
-
-//        holder.baseLayout.option_name.text = choices!!.keys.elementAt(position)
     }
 }

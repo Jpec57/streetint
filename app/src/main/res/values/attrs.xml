@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Anatomy">
+        <attr name="triceps" format="color" />
+        <attr name="shoulders" format="color"/>
+        <attr name="abs" format="color"/>
+        <attr name="trapezius" format="color"/>
+        <attr name="chest" format="color"/>
+        <attr name="quadri" format="color"/>
+        <attr name="hamstring" format="color"/>
+        <attr name="butt" format="color"/>
+        <attr name="back" format="color"/>
+        <attr name="biceps" format="color"/>
+        <attr name="penis" format="color"/>
+    </declare-styleable>
+</resources>
