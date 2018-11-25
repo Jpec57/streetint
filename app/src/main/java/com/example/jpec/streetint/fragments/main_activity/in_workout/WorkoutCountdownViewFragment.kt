@@ -150,9 +150,6 @@ class WorkoutCountdownViewFragment : Fragment() {
         else
         {
             saveWorkoutInDb()
-            val intent = Intent(activity!!.applicationContext, EndOfWorkoutActivity::class.java)
-            intent.putExtra("name", ref.workout!!.name)
-            startActivity(intent)
         }
     }
 
@@ -170,6 +167,11 @@ class WorkoutCountdownViewFragment : Fragment() {
 
         val task = Runnable {
             mDb?.workoutDao()?.insertWorkout(ref.doneWorkout as Workout)
+            val intent = Intent(activity!!.applicationContext, EndOfWorkoutActivity::class.java)
+            intent.putExtra("name", ref.workout!!.name)
+            intent.putExtra("type", ref.workoutType)
+            intent.putExtra("skillName", ref.skillName)
+            startActivity(intent)
         }
         mDbWorkerThread.postTask(task)
     }
@@ -177,10 +179,7 @@ class WorkoutCountdownViewFragment : Fragment() {
     private fun calibrateVelocity(velocityX: Float, distanceX: Float): Int
     {
         val calibratedVelocity = (velocityX / 50).absoluteValue.toInt()
-        if (calibratedVelocity > 10)
-            return 10
-        else
-            return calibratedVelocity
+        return if (calibratedVelocity > 10) 10 else calibratedVelocity
     }
 
     private fun setRepSliderContent(difference: Int, isLeft: Boolean = false)

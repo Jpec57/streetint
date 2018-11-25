@@ -18,8 +18,7 @@ class ChooseProgramActivity : AppCompatActivity(){
     {
         premade.setOnClickListener { startActivity(Intent(this, ChoosePremadeWorkoutActivity::class.java)) }
         skills.setOnClickListener { startActivity(Intent(this, ChooseSkillActivity::class.java)) }
-        created_workouts.setOnClickListener { startActivity(Intent(this, CreateWorkoutActivity::class.java)) }
-
+        created_workouts.setOnClickListener { startActivity(Intent(this, YourWorkoutsActivity::class.java)) }
     }
 
 }

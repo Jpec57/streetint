@@ -7,35 +7,39 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.View
+import android.util.Log
+import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutContentFragment
 import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutMuscleFragment
 import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutResumeFragment
 import com.example.jpec.streetint.interfaces.DbWorkerThread
+import com.example.jpec.streetint.interfaces.SkillUserInfoDatabase
 import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.models.ProfileDataModel
 import com.example.jpec.streetint.models.Workout
-import kotlinx.android.synthetic.main.activity_end_of_workout.*
-import kotlinx.android.synthetic.main.fragment_end_of_workout_content.*
 
 class EndOfWorkoutActivity : FragmentActivity() {
-    val NUM_PAGES = 3
     private lateinit var mPager: ViewPager
     var workouts: List<Workout>? = null
     lateinit var workout: Workout
+    var workoutType = 0
+    var skillName = ""
+    var contextContentFragment : EndOfWorkoutContentFragment? = null
 
     private lateinit var mDbWorkerThread: DbWorkerThread
     private var mDb: WorkoutDatabase? = null
-    private val mUiHandler = Handler()
+    private var skillUserInfoDatabase: SkillUserInfoDatabase? = null
+    private var mUiHandler = Handler()
+    private var skillLevels: ProfileDataModel.SkillLevels? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end_of_workout)
 
-        // Instantiate a ViewPager and a PagerAdapter.
+        skillName = intent.getStringExtra("skillName")
+        workoutType = intent.getIntExtra("type", 0)
         mPager = findViewById(R.id.pager)
-
-        // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         mPager.adapter = pagerAdapter
         mPager.currentItem = 0
@@ -49,7 +53,7 @@ class EndOfWorkoutActivity : FragmentActivity() {
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-        override fun getCount(): Int = NUM_PAGES
+        override fun getCount(): Int = 3
 
         override fun getItem(position: Int): Fragment =
             when (position)
@@ -65,11 +69,13 @@ class EndOfWorkoutActivity : FragmentActivity() {
         mDbWorkerThread = DbWorkerThread("dbWorkerThread")
         mDbWorkerThread.start()
 
+        skillUserInfoDatabase = SkillUserInfoDatabase.getInstance(this)
         mDb = WorkoutDatabase.getInstance(this)
         val intent = intent
-        //TODO
         val n = intent.getStringExtra("name")
-        getWorkoutsInDb("Test")
+//        n = "Test"
+        getWorkoutsInDb(n)
+        getSkillUserInfo()
     }
 
     private fun getWorkoutsInDb(name: String)
@@ -79,15 +85,68 @@ class EndOfWorkoutActivity : FragmentActivity() {
             workouts?.let {
                 workout = it[it.size - 1]
             }
+            if (workoutType == 1)
+            {
+                mUiHandler.post{
+                    if (checkIfLvlUp())
+                        Toast.makeText(this, "Skill leveled up", Toast.LENGTH_LONG).show()
+                    else
+                        Toast.makeText(this, "Skill not leveled up", Toast.LENGTH_LONG).show()
+                }
+            }
+            while (contextContentFragment == null) ;
+            contextContentFragment!!.onWorkoutRetrieve()
         }
         while (!mDbWorkerThread.ready) ;
         mDbWorkerThread.postTask(task)
     }
 
+    private fun checkIfLvlUp() : Boolean
+    {
+        val goal = intent.getIntExtra("goal", 40)
+        val skill = intent.getStringExtra("skillName")
+        if (workout.exercises[0].reps >= goal)
+        {
+            skillLevels!!.skillLevels[skill] = 1 + skillLevels!!.skillLevels[skill]!!
+            skillLevels!!.globalSkillLevel = 1 + skillLevels!!.globalSkillLevel
+            skillLevels!!.skillPercents[skill] = 0
+            setSkillUserInfo()
+            return true
+        }
+        skillLevels!!.skillPercents[skill] = workout.exercises[0].reps * 100 / goal
+        setSkillUserInfo()
+        return false
+    }
+
     override fun onDestroy() {
         WorkoutDatabase.destroyInstance()
+        SkillUserInfoDatabase.destroyInstance()
         mDbWorkerThread.quit()
         super.onDestroy()
+    }
+
+    private fun getSkillUserInfo()
+    {
+        val task = Runnable {
+            skillLevels = skillUserInfoDatabase?.skillUserInfoDao()?.getSkillInfo()
+            if (skillLevels == null)
+            {
+                Log.e("HELIX", "Error with skill levels")
+                skillLevels = ProfileDataModel.SkillLevels("Unknown user")
+                setSkillUserInfo()
+            }
+        }
+        while (!mDbWorkerThread.ready) ;
+        mDbWorkerThread.postTask(task)
+    }
+
+    private fun setSkillUserInfo()
+    {
+        val task = Runnable {
+            skillUserInfoDatabase?.skillUserInfoDao()?.setSkillInfo(skillLevels!!)
+        }
+        while (!mDbWorkerThread.ready) ;
+        mDbWorkerThread.postTask(task)
     }
 
 }

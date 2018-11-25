@@ -11,20 +11,17 @@ import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.EndOfWorkoutActivity
 import com.example.jpec.streetint.adapters.EndOfWorkoutContentAdapter
-import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.fragment_end_of_workout_content.*
-import java.lang.Exception
 import com.jjoe64.graphview.series.LineGraphSeries
-import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 
 
 class EndOfWorkoutContentFragment : Fragment() {
     private lateinit var ref: EndOfWorkoutActivity
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private var recyclerView: RecyclerView? = null
+    private var viewAdapter: RecyclerView.Adapter<*>? = null
+    private var viewManager: RecyclerView.LayoutManager? = null
     private var workouts: List<Workout>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,27 +31,26 @@ class EndOfWorkoutContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ref = this.activity as EndOfWorkoutActivity
-        setWorkoutAdapter(view)
-        setChart()
+        ref.contextContentFragment = this
         setOnClickButtons()
     }
 
-    private fun setWorkoutAdapter(view: View)
+    fun onWorkoutRetrieve() {
+        setWorkoutAdapter()
+        setChart()
+    }
+
+    private fun setWorkoutAdapter()
     {
         workouts = ref.workouts
         viewManager = LinearLayoutManager(activity!!.applicationContext)
         viewAdapter = EndOfWorkoutContentAdapter(activity!!.applicationContext, workouts)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.recycler).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
+        recyclerView = view!!.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
-            // use a linear layout manager
             layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.HORIZONTAL))
     }
 
     private fun setOnClickButtons()

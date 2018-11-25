@@ -9,10 +9,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.ChooseSkillProgressionLvlActivity
+import com.example.jpec.streetint.models.ProfileDataModel
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_choose_skill.view.*
 
-class ChooseSkillAdapter(val context: Context, private val allSkills: MutableMap<String, ArrayList<Workout>>) :  RecyclerView.Adapter<ChooseSkillAdapter.MyViewHolder>()
+class ChooseSkillAdapter(val context: Context, private val allSkills: MutableMap<String, ArrayList<Workout>>, private val skillLevels: ProfileDataModel.SkillLevels) :  RecyclerView.Adapter<ChooseSkillAdapter.MyViewHolder>()
 {
     private val skillNames = allSkills.keys
 
@@ -29,10 +30,13 @@ class ChooseSkillAdapter(val context: Context, private val allSkills: MutableMap
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val key = skillNames.elementAt(position)
         holder.baseLayout.skillName.text = key
+        val skillLvl = "- lvl ${skillLevels.skillLevels[key]} -"
+        holder.baseLayout.lvl.text = skillLvl
         holder.baseLayout.chooseSkill.setOnClickListener {
             val intent = Intent(context, ChooseSkillProgressionLvlActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("workout", allSkills[key])
+            bundle.putSerializable("workouts", allSkills[key])
+            intent.putExtra("lvl", skillLevels.skillLevels[key])
             intent.putExtras(bundle)
             context.startActivity(intent)
         }

@@ -27,7 +27,8 @@
 
     <!-- CHOOSEWORKOUT -->
     <string name="skills">Skills</string>
-    <string name="created_workouts">Created workouts</string>
+
+    <string name="your_workouts">Your workouts</string>
     <string name="intelligent_workout">Intelligent workout</string>
     <string name="create_a_workout">Create a workout</string>
     <string name="premade_workouts">Premade workouts</string>
@@ -56,6 +57,12 @@
     <string name="penis">penis</string>
     <string name="trapezius">trapezius</string>
     <string name="leg">leg</string>
+    <string name="tempo_workout">Tempo Workout</string>
+    <string name="created_workouts">Created workouts</string>
+    <string name="random_workout">Random workout</string>
+    <string name="lvl_1">- lvl 1 -</string>
+    <string name="unknown_user">Unknown user</string>
+    <string name="level_up_first">Level up first</string>
 
 
 </resources>

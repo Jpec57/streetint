@@ -27,16 +27,21 @@ class InWorkoutActivity : FragmentActivity() {
     var currentSerie = 1
     var currentExo = 0
     var doneWorkout: Workout? = null
+    var workoutType = 0
+    var goal = 30
+    var skillName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_in_workout)
 
-        //get data
         val bundle = intent.extras
         if (bundle != null)
         {
             workout = bundle.getSerializable("workout") as Workout
+            workoutType = intent.getIntExtra("type", 0)
+            skillName = intent.getStringExtra("skillName")
+            goal = intent.getIntExtra("goal", 30)
             doneWorkout = workout!!.copy()
             doneWorkout!!.exercises = ArrayList()
         }
@@ -53,11 +58,6 @@ class InWorkoutActivity : FragmentActivity() {
     }
 
     override fun onBackPressed() {
-//        if (mPager.currentItem == 0) {
-//            super.onBackPressed()
-//        } else {
-//            mPager.currentItem = mPager.currentItem - 1
-//        }
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

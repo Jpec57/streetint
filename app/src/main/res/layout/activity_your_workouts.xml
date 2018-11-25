@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
-
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.constraint.Guideline
             android:id="@+id/guideline_vertical"
             android:layout_width="1dp"
@@ -23,7 +22,8 @@
             app:layout_constraintGuide_percent="0.5"/>
 
     <Button
-            android:text="@string/skills"
+            android:text="@string/create_a_workout"
+            android:id="@+id/create"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textSize="30sp"
@@ -36,11 +36,11 @@
             app:layout_constraintWidth_percent="50"
             app:layout_constraintHeight_percent="50"
             android:layout_margin="5sp"
-            android:id="@+id/skills"
-            />
+    />
 
     <Button
-            android:text="@string/your_workouts"
+            android:text="@string/tempo_workout"
+            android:id="@+id/tempo"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textSize="30sp"
@@ -53,11 +53,9 @@
             app:layout_constraintWidth_percent="50"
             app:layout_constraintHeight_percent="50"
             android:layout_margin="5sp"
-            android:id="@+id/created_workouts"
     />
 
     <Button
-            android:text="@string/intelligent_workout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textSize="30sp"
@@ -70,11 +68,11 @@
             app:layout_constraintWidth_percent="50"
             app:layout_constraintHeight_percent="50"
             android:layout_margin="5sp"
-            android:id="@+id/ia_workout"
+            android:text="@string/random_workout"
+            android:id="@+id/random"
     />
 
     <Button
-            android:text="@string/premade_workouts"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textSize="30sp"
@@ -87,8 +85,8 @@
             app:layout_constraintWidth_percent="50"
             app:layout_constraintHeight_percent="50"
             android:layout_margin="5sp"
-            android:id="@+id/premade"
+            android:text="@string/created_workouts"
+            android:id="@+id/created_workouts"
     />
-
 
 </android.support.constraint.ConstraintLayout>
