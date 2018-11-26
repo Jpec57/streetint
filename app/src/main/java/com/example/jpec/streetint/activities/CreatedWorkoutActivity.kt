@@ -3,9 +3,9 @@ package com.example.jpec.streetint.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.util.Log
 import com.example.jpec.streetint.R
@@ -23,13 +23,13 @@ import android.view.Display
 
 class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
     private lateinit var workouts : ArrayList<Workout>
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
 
-    private lateinit var recyclerView2: RecyclerView
-    private lateinit var viewAdapter2: RecyclerView.Adapter<*>
-    private lateinit var viewManager2: RecyclerView.LayoutManager
+    private lateinit var recyclerView2: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter2: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager2: androidx.recyclerview.widget.RecyclerView.LayoutManager
 
     private var width = 0
     private lateinit var currentWorkout :  Workout
@@ -68,10 +68,10 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
         workouts.add(Workout(name = "E", exercises = arrayListOf(Exercise("wfnjwjf"))))
         workouts.add(Workout(name = "F", exercises = arrayListOf(Exercise("Twfn"))))
 
-        viewManager = ZoomCenterCardLayoutManager(this, LinearLayoutManager.HORIZONTAL, false, this)
+        viewManager = ZoomCenterCardLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false, this)
         viewAdapter = CreatedWorkoutAdapter(this, workouts)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
+        recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -86,10 +86,10 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
 
     private fun setExoAdapter()
     {
-        viewManager2 = LinearLayoutManager(this)
+        viewManager2 = androidx.recyclerview.widget.LinearLayoutManager(this)
         viewAdapter2 = ShowWorkoutContentAdapter(this, currentWorkout)
 
-        recyclerView2 = findViewById<RecyclerView>(R.id.recycler_in).apply {
+        recyclerView2 = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_in).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)

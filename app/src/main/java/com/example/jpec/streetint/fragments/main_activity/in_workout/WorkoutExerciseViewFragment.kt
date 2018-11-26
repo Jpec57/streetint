@@ -4,7 +4,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +17,7 @@ import com.example.jpec.streetint.models.Exercise
 import kotlinx.android.synthetic.main.fragment_in_workout.*
 import kotlin.math.min
 
-class WorkoutExerciseViewFragment : Fragment() {
+class WorkoutExerciseViewFragment : androidx.fragment.app.Fragment() {
     private lateinit var ref : InWorkoutActivity
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable

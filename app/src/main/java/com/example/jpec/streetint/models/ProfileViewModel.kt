@@ -1,6 +1,6 @@
 package com.example.jpec.streetint.models
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 
 class ProfileViewModel : ViewModel() {
 

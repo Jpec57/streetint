@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/blueDark"
@@ -56,16 +56,16 @@
                 app:layout_constrainedHeight="true"
         />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:orientation="horizontal"
             android:id="@+id/guideline_horizontal"
             app:layout_constraintGuide_percent="0.3"
     />
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/greyBlue"
@@ -122,29 +122,29 @@
                     android:layout_gravity="center"
             />
         </LinearLayout>
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/guideline_vertical"
                 app:layout_constraintGuide_percent="0.15"
         />
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/guideline_vertical2"
                 app:layout_constraintGuide_percent="0.85"
         />
-    </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.Guideline
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:orientation="horizontal"
             android:id="@+id/guideline_horizontal2"
             app:layout_constraintGuide_percent="0.45"
     />
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
@@ -154,4 +154,4 @@
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal2"
             app:layout_constraintBottom_toBottomOf="parent"
     />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

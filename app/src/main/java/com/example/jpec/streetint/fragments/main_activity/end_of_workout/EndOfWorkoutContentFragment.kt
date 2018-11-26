@@ -1,10 +1,10 @@
 package com.example.jpec.streetint.fragments.main_activity.end_of_workout
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +17,11 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 
 
-class EndOfWorkoutContentFragment : Fragment() {
+class EndOfWorkoutContentFragment : androidx.fragment.app.Fragment() {
     private lateinit var ref: EndOfWorkoutActivity
-    private var recyclerView: RecyclerView? = null
-    private var viewAdapter: RecyclerView.Adapter<*>? = null
-    private var viewManager: RecyclerView.LayoutManager? = null
+    private var recyclerView: androidx.recyclerview.widget.RecyclerView? = null
+    private var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>? = null
+    private var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager? = null
     private var workouts: List<Workout>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,10 +43,10 @@ class EndOfWorkoutContentFragment : Fragment() {
     private fun setWorkoutAdapter()
     {
         workouts = ref.workouts
-        viewManager = LinearLayoutManager(activity!!.applicationContext)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(activity!!.applicationContext)
         viewAdapter = EndOfWorkoutContentAdapter(activity!!.applicationContext, workouts)
 
-        recyclerView = view!!.findViewById<RecyclerView>(R.id.recycler).apply {
+        recyclerView = view!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter

@@ -1,18 +1,18 @@
 package com.example.jpec.streetint.activities
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.main_activity.main_activity.MainFragment
 import com.example.jpec.streetint.fragments.main_activity.main_activity.QuickChronoFragment
 
-class MainActivity : FragmentActivity() {
+class MainActivity : androidx.fragment.app.FragmentActivity() {
     val NUM_PAGES = 2
-    private lateinit var mPager: ViewPager
+    private lateinit var mPager: androidx.viewpager.widget.ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,10 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+    private inner class ScreenSlidePagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
         override fun getCount(): Int = NUM_PAGES
 
-        override fun getItem(position: Int): Fragment =
+        override fun getItem(position: Int): androidx.fragment.app.Fragment =
             when (position)
             {
                 0 -> MainFragment()

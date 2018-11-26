@@ -2,9 +2,9 @@ package com.example.jpec.streetint.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.adapter_end_of_workout_exercises.view.*
 import java.lang.IndexOutOfBoundsException
 
 
-class EndOfWorkoutContentAdapter(private val context: Context, private val w: List<Workout>?) : RecyclerView.Adapter<EndOfWorkoutContentAdapter.MyViewHolder>()
+class EndOfWorkoutContentAdapter(private val context: Context, private val w: List<Workout>?) : androidx.recyclerview.widget.RecyclerView.Adapter<EndOfWorkoutContentAdapter.MyViewHolder>()
 {
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): EndOfWorkoutContentAdapter.MyViewHolder {

@@ -1,7 +1,7 @@
 package com.example.jpec.streetint.interfaces
 
-import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.REPLACE
+import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread

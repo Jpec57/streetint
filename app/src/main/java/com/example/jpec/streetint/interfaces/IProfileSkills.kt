@@ -1,6 +1,6 @@
 package com.example.jpec.streetint.interfaces
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.example.jpec.streetint.models.ProfileDataModel
 
 interface IProfileSkills {

@@ -7,9 +7,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
@@ -27,9 +27,9 @@ import kotlin.random.Random
 
 class RandomWorkoutActivity : Activity() {
     private lateinit var adapterMap: MutableMap<String, ArrayList<String>>
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     private lateinit var randomAdapter: RandomWorkoutAdapter
 
     private lateinit var mDbRef : DatabaseReference
@@ -305,12 +305,12 @@ class RandomWorkoutActivity : Activity() {
         adapterMap["Targeted muscles"] = arrayListOf("Back", "Biceps", "Triceps", "Chest", "Legs", "Abs", "Shoulders")
         adapterMap["Available materials"] = arrayListOf("None", "Parallel Bars", "Pull Up Bar", "Rubber", "Kettlebell", "Weight")
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         randomAdapter = RandomWorkoutAdapter(this, adapterMap, getPrefForRandom())
 
         viewAdapter = randomAdapter
 
-        recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
+        recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -319,7 +319,12 @@ class RandomWorkoutActivity : Activity() {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.HORIZONTAL))
+        recyclerView.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                recyclerView.context,
+                androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL
+            )
+        )
     }
 
     fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()

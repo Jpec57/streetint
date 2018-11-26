@@ -1,15 +1,15 @@
 package com.example.jpec.streetint.fragments.main_activity.end_of_workout
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.core.content.res.ResourcesCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import kotlinx.android.synthetic.main.activity_create_workout.*
 
-class EndOfWorkoutMuscleFragment : Fragment() {
+class EndOfWorkoutMuscleFragment : androidx.fragment.app.Fragment() {
     private val muscleColorMap = mapOf("chest" to R.style.chest,
         "biceps" to R.style.biceps, "triceps" to R.style.triceps,
         "leg" to R.style.leg, "shoulder" to R.style.shoulders,

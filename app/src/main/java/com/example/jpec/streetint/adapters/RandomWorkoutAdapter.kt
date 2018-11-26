@@ -2,10 +2,10 @@ package com.example.jpec.streetint.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +15,13 @@ import com.example.jpec.streetint.R
 import kotlinx.android.synthetic.main.expandable_parent_random_workout.view.*
 import java.lang.Exception
 
-class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap<String, ArrayList<String>>?, val pref: ArrayList<String>) : RecyclerView.Adapter<RandomWorkoutAdapter.MyViewHolder>()
+class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap<String, ArrayList<String>>?, val pref: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<RandomWorkoutAdapter.MyViewHolder>()
 {
     internal val selectedMap = mutableMapOf<String, Boolean>()
     private lateinit var parentView: ViewGroup
 
 
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RandomWorkoutAdapter.MyViewHolder {
@@ -42,7 +42,7 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.baseLayout.option_name.text = choices!!.keys.elementAt(position)
 
-        val viewManager = LinearLayoutManager(context)
+        val viewManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         val viewAdapter = RandomWorkoutInsideAdapter(holder.baseLayout.selected, choices[choices.keys.elementAt(position)],
             choices.keys.elementAt(position), this, position > 1)
 

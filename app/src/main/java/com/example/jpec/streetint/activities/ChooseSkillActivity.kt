@@ -3,9 +3,9 @@ package com.example.jpec.streetint.activities
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ChooseSkillAdapter
 import com.example.jpec.streetint.interfaces.DbWorkerThread
@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.activity_choose_skills.*
 
 class ChooseSkillActivity : Activity()
 {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
 
     private lateinit var mDbWorkerThread: DbWorkerThread
     private var skillLevels: ProfileDataModel.SkillLevels? = null
@@ -322,10 +322,10 @@ class ChooseSkillActivity : Activity()
                 Exercise("Compression", series = 6, reps = 12, isStatic = false, rest = 25)))
         )
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         viewAdapter = ChooseSkillAdapter(this, allSkills, skillLevels!!)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
+        recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -334,6 +334,11 @@ class ChooseSkillActivity : Activity()
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.HORIZONTAL))
+        recyclerView.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                recyclerView.context,
+                androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL
+            )
+        )
     }
 }

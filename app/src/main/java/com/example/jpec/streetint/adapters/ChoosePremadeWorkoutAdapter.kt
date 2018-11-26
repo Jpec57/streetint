@@ -3,8 +3,8 @@ package com.example.jpec.streetint.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -16,13 +16,13 @@ import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_choose_premade.view.*
 
 class ChoosePremadeWorkoutAdapter(private val context: Context, private val allWorkouts: MutableList<Workout>) :
-    RecyclerView.Adapter<ChoosePremadeWorkoutAdapter.MyViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ChoosePremadeWorkoutAdapter.MyViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
 
     // Create new views (invoked by the layout manager)

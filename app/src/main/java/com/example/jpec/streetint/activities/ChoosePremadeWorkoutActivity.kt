@@ -2,11 +2,11 @@ package com.example.jpec.streetint.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ChoosePremadeWorkoutAdapter
-import android.support.v7.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration
 import android.widget.Toast
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.StringList
@@ -14,9 +14,9 @@ import com.example.jpec.streetint.models.Workout
 
 
 class ChoosePremadeWorkoutActivity : Activity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     private lateinit var allWorkouts: MutableList<Workout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,10 +25,10 @@ class ChoosePremadeWorkoutActivity : Activity() {
 
         initWorkouts()
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         viewAdapter = ChoosePremadeWorkoutAdapter(this, allWorkouts)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
+        recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -37,7 +37,12 @@ class ChoosePremadeWorkoutActivity : Activity() {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.HORIZONTAL))
+        recyclerView.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                recyclerView.context,
+                androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL
+            )
+        )
 
 
     }

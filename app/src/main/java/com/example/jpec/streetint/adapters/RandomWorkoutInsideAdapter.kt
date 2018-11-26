@@ -1,7 +1,7 @@
 package com.example.jpec.streetint.adapters
 
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.expandable_child_random_workout.view.*
 
 class RandomWorkoutInsideAdapter(val textView: TextView, private val choices: List<String>?,
                                  private val optionsName: String, private val randomWorkoutAdapter: RandomWorkoutAdapter,
-                                 private val multiple: Boolean) : RecyclerView.Adapter<RandomWorkoutInsideAdapter.MyViewHolder>()
+                                 private val multiple: Boolean) : androidx.recyclerview.widget.RecyclerView.Adapter<RandomWorkoutInsideAdapter.MyViewHolder>()
 {
     private var oldSelected : Int = -1
     private var oldSelectedView: View? = null
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RandomWorkoutInsideAdapter.MyViewHolder {

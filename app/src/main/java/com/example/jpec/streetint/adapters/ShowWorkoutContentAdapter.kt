@@ -1,17 +1,17 @@
 package com.example.jpec.streetint.adapters
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_show_exercise_content.view.*
 
-class ShowWorkoutContentAdapter(private val context: Context,private val w: Workout) : RecyclerView.Adapter<ShowWorkoutContentAdapter.MyViewHolder>()
+class ShowWorkoutContentAdapter(private val context: Context,private val w: Workout) : androidx.recyclerview.widget.RecyclerView.Adapter<ShowWorkoutContentAdapter.MyViewHolder>()
 {
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ShowWorkoutContentAdapter.MyViewHolder {

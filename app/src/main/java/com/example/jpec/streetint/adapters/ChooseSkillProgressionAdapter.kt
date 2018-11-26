@@ -3,8 +3,8 @@ package com.example.jpec.streetint.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +15,10 @@ import com.example.jpec.streetint.activities.ShowWorkoutContentActivity
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_choose_skill_progression_lvl.view.*
 
-class ChooseSkillProgressionAdapter(val context: Context, val workouts : ArrayList<Workout>, val lvl : Int) :  RecyclerView.Adapter<ChooseSkillProgressionAdapter.MyViewHolder>()
+class ChooseSkillProgressionAdapter(val context: Context, val workouts : ArrayList<Workout>, val lvl : Int) :  androidx.recyclerview.widget.RecyclerView.Adapter<ChooseSkillProgressionAdapter.MyViewHolder>()
 {
 
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ChooseSkillProgressionAdapter.MyViewHolder {

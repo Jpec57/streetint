@@ -1,12 +1,12 @@
 package com.example.jpec.streetint.activities
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.models.ProfileViewModel
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import com.example.jpec.streetint.models.ProfileDataModel
 
 

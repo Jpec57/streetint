@@ -1,8 +1,8 @@
 package com.example.jpec.streetint.adapters
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,11 +10,11 @@ import com.example.jpec.streetint.R
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_created_workout_overview.view.*
 
-class CreatedWorkoutAdapter(val context : Context, val workouts : ArrayList<Workout>): RecyclerView.Adapter<CreatedWorkoutAdapter.MyViewHolder>() {
+class CreatedWorkoutAdapter(val context : Context, val workouts : ArrayList<Workout>): androidx.recyclerview.widget.RecyclerView.Adapter<CreatedWorkoutAdapter.MyViewHolder>() {
 
     override fun getItemCount() = workouts.size + 2
 
-    class MyViewHolder(val baseLayout: ConstraintLayout) : RecyclerView.ViewHolder(baseLayout)
+    class MyViewHolder(val baseLayout: ConstraintLayout) : androidx.recyclerview.widget.RecyclerView.ViewHolder(baseLayout)
 
     companion object {
         const val BLANK_VIEW = 0

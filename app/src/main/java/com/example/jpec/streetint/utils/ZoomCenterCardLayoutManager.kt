@@ -1,19 +1,19 @@
 package com.example.jpec.streetint.utils
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import com.example.jpec.streetint.interfaces.CreatedWorkoutFocusListener
 
 
 class ZoomCenterCardLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean, val createdWorkoutFocusListener: CreatedWorkoutFocusListener) :
-    LinearLayoutManager(context, orientation, reverseLayout) {
+    androidx.recyclerview.widget.LinearLayoutManager(context, orientation, reverseLayout) {
     private val mShrinkAmount = 0.5f
     private val mShrinkDistance = 0.75f
     private var oldMaxScalePos = -1
 
-    override fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?): Int {
+    override fun scrollHorizontallyBy(dx: Int, recycler: androidx.recyclerview.widget.RecyclerView.Recycler?, state: androidx.recyclerview.widget.RecyclerView.State?): Int {
         val scrolled =  super.scrollHorizontallyBy(dx, recycler, state)
         val midpoint = width / 2f
         val d0 = 0f
@@ -44,7 +44,7 @@ class ZoomCenterCardLayoutManager(context: Context?, orientation: Int, reverseLa
         return scrolled
     }
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+    override fun onLayoutChildren(recycler: androidx.recyclerview.widget.RecyclerView.Recycler?, state: androidx.recyclerview.widget.RecyclerView.State?) {
         super.onLayoutChildren(recycler, state)
         scrollVerticallyBy(0, recycler, state)
     }

@@ -1,6 +1,6 @@
 package com.example.jpec.streetint.interfaces
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import android.content.Context
 import com.example.jpec.streetint.models.IntMapConverter
 import com.example.jpec.streetint.models.ProfileDataModel

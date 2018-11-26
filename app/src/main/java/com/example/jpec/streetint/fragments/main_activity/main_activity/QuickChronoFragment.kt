@@ -2,8 +2,8 @@ package com.example.jpec.streetint.fragments.main_activity.main_activity
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ import android.media.MediaPlayer
 
 
 
-class QuickChronoFragment : Fragment() {
+class QuickChronoFragment : androidx.fragment.app.Fragment() {
     private var oldSerieView : View? = null
     private var currentSerie: Int = 6
     private var currentRest = 60

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.*
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +24,7 @@ import java.lang.IndexOutOfBoundsException
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
-class WorkoutCountdownViewFragment : Fragment() {
+class WorkoutCountdownViewFragment : androidx.fragment.app.Fragment() {
     private lateinit var ref: InWorkoutActivity
     lateinit var timer : CountDownTimer
     private lateinit var bip : MediaPlayer

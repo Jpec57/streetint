@@ -6,10 +6,10 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.*
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import android.util.Log
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutCountdownViewFragment
@@ -19,7 +19,7 @@ import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.LockableViewPager
 
 
-class InWorkoutActivity : FragmentActivity() {
+class InWorkoutActivity : androidx.fragment.app.FragmentActivity() {
     val NUM_PAGES = 2
     lateinit var mPager: LockableViewPager
     var workout: Workout? = null
@@ -60,10 +60,10 @@ class InWorkoutActivity : FragmentActivity() {
     override fun onBackPressed() {
     }
 
-    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+    private inner class ScreenSlidePagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
         override fun getCount(): Int = NUM_PAGES
 
-        override fun getItem(position: Int): Fragment =
+        override fun getItem(position: Int): androidx.fragment.app.Fragment =
             when (position)
             {
                 0 -> WorkoutExerciseViewFragment()
