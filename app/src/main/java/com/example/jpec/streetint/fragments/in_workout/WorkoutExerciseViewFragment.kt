@@ -1,21 +1,16 @@
-package com.example.jpec.streetint.fragments.main_activity.in_workout
+package com.example.jpec.streetint.fragments.in_workout
 
-import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.InWorkoutActivity
-import com.example.jpec.streetint.activities.MainActivity
 import com.example.jpec.streetint.models.Exercise
 import kotlinx.android.synthetic.main.fragment_in_workout.*
-import kotlin.math.min
 
 class WorkoutExerciseViewFragment : androidx.fragment.app.Fragment() {
     private lateinit var ref : InWorkoutActivity

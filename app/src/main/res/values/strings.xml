@@ -63,6 +63,9 @@
     <string name="lvl_1">- lvl 1 -</string>
     <string name="unknown_user">Unknown user</string>
     <string name="level_up_first">Level up first</string>
+    <string name="choose_muscle">Choose a muscle</string>
+    <string name="choose_an_exercise">Choose an exercise</string>
+    <string name="workout_name">Workout Name</string>
 
 
 </resources>

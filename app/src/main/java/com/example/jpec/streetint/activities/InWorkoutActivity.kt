@@ -1,20 +1,10 @@
 package com.example.jpec.streetint.activities
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.media.MediaPlayer
 import android.os.*
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import android.util.Log
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutCountdownViewFragment
-import com.example.jpec.streetint.fragments.main_activity.in_workout.WorkoutExerciseViewFragment
-import com.example.jpec.streetint.models.Exercise
+import com.example.jpec.streetint.fragments.in_workout.WorkoutCountdownViewFragment
+import com.example.jpec.streetint.fragments.in_workout.WorkoutExerciseViewFragment
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.LockableViewPager
 
@@ -40,7 +30,8 @@ class InWorkoutActivity : androidx.fragment.app.FragmentActivity() {
         {
             workout = bundle.getSerializable("workout") as Workout
             workoutType = intent.getIntExtra("type", 0)
-            skillName = intent.getStringExtra("skillName")
+            if (intent.getStringExtra("skillName") != null)
+                skillName = intent.getStringExtra("skillName")
             goal = intent.getIntExtra("goal", 30)
             doneWorkout = workout!!.copy()
             doneWorkout!!.exercises = ArrayList()

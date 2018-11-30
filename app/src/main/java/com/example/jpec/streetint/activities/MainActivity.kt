@@ -1,14 +1,9 @@
 package com.example.jpec.streetint.activities
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.main_activity.main_activity.MainFragment
-import com.example.jpec.streetint.fragments.main_activity.main_activity.QuickChronoFragment
+import com.example.jpec.streetint.fragments.main_activity.MainFragment
+import com.example.jpec.streetint.fragments.main_activity.QuickChronoFragment
 
 class MainActivity : androidx.fragment.app.FragmentActivity() {
     val NUM_PAGES = 2

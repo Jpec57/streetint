@@ -1,26 +1,20 @@
-package com.example.jpec.streetint.fragments.main_activity.in_workout
+package com.example.jpec.streetint.fragments.in_workout
 
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.*
-import androidx.fragment.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.activities.ChooseProgramActivity
 import com.example.jpec.streetint.activities.EndOfWorkoutActivity
 import com.example.jpec.streetint.activities.InWorkoutActivity
-import com.example.jpec.streetint.activities.MainActivity
 import com.example.jpec.streetint.interfaces.DbWorkerThread
 import com.example.jpec.streetint.interfaces.WorkoutDatabase
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.fragment_in_workout_rest.*
-import java.lang.IndexOutOfBoundsException
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 

@@ -2,17 +2,12 @@ package com.example.jpec.streetint.activities
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
 import android.util.Log
 import android.widget.Toast
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutContentFragment
-import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutMuscleFragment
-import com.example.jpec.streetint.fragments.main_activity.end_of_workout.EndOfWorkoutResumeFragment
+import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutContentFragment
+import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutMuscleFragment
+import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutResumeFragment
 import com.example.jpec.streetint.interfaces.DbWorkerThread
 import com.example.jpec.streetint.interfaces.SkillUserInfoDatabase
 import com.example.jpec.streetint.interfaces.WorkoutDatabase

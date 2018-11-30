@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class ShowWorkoutContentActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_workout_content)
+        workout_name.isEnabled = false
         setWorkoutAdapter()
         setDatabase()
         setOnClickButtons()
@@ -149,7 +151,7 @@ class ShowWorkoutContentActivity : Activity() {
 
         time.text = "${workout.time / 60}"
         workout_desc.text = workout.description
-        workout_name.text = workout.name
+        workout_name.text = Editable.Factory.getInstance().newEditable(workout.name)
         cycleOrSeries.text = if (workout.cycle) "CYCLES" else "SERIES"
         cycle.setImageResource( if (workout.cycle) R.drawable.cycle else R.drawable.series)
 

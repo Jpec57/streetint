@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:background="@drawable/button_white"
+                                                   android:layout_margin="5sp"
+                                                   android:id="@+id/exoContainer"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_width="120sp"
+               android:layout_height="120sp"
+               android:contentDescription="@string/allworkouts"
+               android:id="@+id/img"
+               android:src="@drawable/face_the_bar"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
+
+    />
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/allworkouts"
+              android:textStyle="bold"
+              android:textSize="16sp"
+              android:textColor="@color/black"
+              android:id="@+id/exo_name"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintVertical_bias="0.25"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/allworkouts"
+              android:id="@+id/exo_muscle"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@id/exo_name"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintVertical_bias="0"
+
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/allworkouts"
+              android:id="@+id/exo_desc"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@id/exo_muscle"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+              app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
+              app:layout_constraintVertical_bias="0"
+              app:layout_constrainedWidth="true"
+
+    />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical2"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:text="@string/six"
+              android:id="@+id/time"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/guideline_vertical2"
+              app:layout_constraintEnd_toEndOf="parent"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

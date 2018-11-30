@@ -1,8 +1,7 @@
-package com.example.jpec.streetint.fragments.main_activity.main_activity
+package com.example.jpec.streetint.fragments.main_activity
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
