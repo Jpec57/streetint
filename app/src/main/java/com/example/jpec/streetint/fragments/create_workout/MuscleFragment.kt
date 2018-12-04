@@ -2,6 +2,7 @@ package com.example.jpec.streetint.fragments.create_workout
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,10 +42,10 @@ class MuscleFragment : Fragment() {
     {
         val theme = resources.newTheme()
         val muscles = communicator.getSelectedMusclesArray()
-        muscles.forEach { it.toLowerCase() }
         for (m in muscles)
-            theme.applyStyle(muscleColorMap[m]!!, false)
-
+        {
+            theme.applyStyle(muscleColorMap[m.toLowerCase()]!!, false)
+        }
         val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_paths, theme)
         svg.setImageDrawable(drawable)
     }

@@ -1,6 +1,7 @@
 package com.example.jpec.streetint.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.create_workout.ChooseExoFragment
@@ -8,6 +9,7 @@ import com.example.jpec.streetint.fragments.create_workout.MuscleFragment
 import com.example.jpec.streetint.fragments.create_workout.ResumeWorkoutFragment
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
 import com.example.jpec.streetint.models.Exercise
+import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.LockableViewPager
 
 class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWorkoutCommunicator {
@@ -15,12 +17,11 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
     lateinit var mPager: LockableViewPager
 
     var selectedMuscle = ""
-    var selectedExo : Exercise? = null
-    var exercises = ArrayList<Exercise>()
+    var createdWorkout = Workout(name = "Workout Name", exercises = ArrayList(), saved = true)
     lateinit var selectedMuscles : ArrayList<String>
 
     override fun addExercise(exo: Exercise) {
-        exercises.add(exo)
+        createdWorkout.exercises.add(exo)
         mPager.currentItem = mPager.currentItem + 1
     }
     override fun setMuscle(m: String) {
@@ -34,6 +35,16 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
 
     override fun getSelectedMusclesArray() = selectedMuscles
 
+    override fun getWorkout() = createdWorkout
+
+    override fun setWorkout(workout: Workout) {
+        createdWorkout = workout
+    }
+
+    override fun goBackToMuscle() {
+        mPager.currentItem = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_workout)
@@ -44,15 +55,15 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
         mPager.adapter = pagerAdapter
 
         selectedMuscles = ArrayList()
-        mPager.currentItem = 3
 
     }
 
     override fun onBackPressed() {
-        if (mPager.currentItem == 0) {
-            super.onBackPressed()
-        } else {
-            mPager.currentItem = mPager.currentItem - 1
+        super.onBackPressed()
+        when (mPager.currentItem)
+        {
+            0 -> mPager.currentItem = mPager.currentItem - 1
+            else -> mPager.currentItem = mPager.currentItem - 1
         }
     }
 

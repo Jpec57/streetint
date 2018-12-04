@@ -10,7 +10,7 @@ import com.example.jpec.streetint.R
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.adapter_created_workout_overview.view.*
 
-class CreatedWorkoutAdapter(val context : Context, val workouts : ArrayList<Workout>): androidx.recyclerview.widget.RecyclerView.Adapter<CreatedWorkoutAdapter.MyViewHolder>() {
+class CreatedWorkoutAdapter(val context : Context, val workouts : List<Workout>): androidx.recyclerview.widget.RecyclerView.Adapter<CreatedWorkoutAdapter.MyViewHolder>() {
 
     override fun getItemCount() = workouts.size + 2
 

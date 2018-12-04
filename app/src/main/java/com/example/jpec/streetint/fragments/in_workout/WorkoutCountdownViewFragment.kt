@@ -157,7 +157,7 @@ class WorkoutCountdownViewFragment : androidx.fragment.app.Fragment() {
 
     private fun saveWorkoutInDb()
     {
-        ref.doneWorkout!!.timestamp = (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())).toString()
+        ref.doneWorkout!!.timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
 
         val task = Runnable {
             mDb?.workoutDao()?.insertWorkout(ref.doneWorkout as Workout)

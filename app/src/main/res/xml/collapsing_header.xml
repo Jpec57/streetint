@@ -5,7 +5,7 @@
             app:constraintSetStart="@id/start"
         app:constraintSetEnd="@id/end">
         <OnSwipe
-            app:dragDirection="dragUp"
+            app:dragDirection="dragDown"
             app:touchAnchorId="@id/recycler"
             app:touchAnchorSide="top"/>
     </Transition>

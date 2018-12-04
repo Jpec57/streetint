@@ -24,6 +24,9 @@ interface WorkoutDAO {
     @Query("SELECT * from workouts where name=:name order by timestamp limit 1")
     fun getInitWorkout(name: String) : Workout
 
+    @Query("SELECT w1.* FROM workouts w1 INNER JOIN (SELECT DISTINCT name, timestamp FROM workouts WHERE saved = 1 ORDER BY timestamp LIMIT 1) AS w2 ON w1.name = w2.name AND w1.timestamp = w2.timestamp")
+    fun getSavedWorkouts() : List<Workout>
+
     @Insert(onConflict = REPLACE)
     fun insertWorkout(workout: Workout)
 

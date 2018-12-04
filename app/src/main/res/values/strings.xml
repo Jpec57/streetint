@@ -66,6 +66,8 @@
     <string name="choose_muscle">Choose a muscle</string>
     <string name="choose_an_exercise">Choose an exercise</string>
     <string name="workout_name">Workout Name</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

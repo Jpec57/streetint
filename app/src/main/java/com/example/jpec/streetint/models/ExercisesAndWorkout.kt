@@ -4,6 +4,7 @@ import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
+import java.lang.IndexOutOfBoundsException
 import kotlin.collections.ArrayList
 
 @Entity(tableName = "exercises")
@@ -29,18 +30,25 @@ fun getDifferentMusclesOrMaterial(exo: MutableList<Exercise>,
 {
     lateinit var musclesExo : ArrayList<String>
     lateinit var differentMuscles : ArrayList<String>
-    musclesExo = if (isMuscle) { exo[0].muscles } else exo[0].material
-    differentMuscles = musclesExo
-    for (e in exo)
-    {
-        musclesExo = if (isMuscle) e.muscles else e.material
-        for (i in musclesExo.indices)
+    try {
+        if (exo.isEmpty())
+            return arrayListOf("None")
+        musclesExo = if (isMuscle) { exo[0].muscles } else exo[0].material
+        differentMuscles = musclesExo
+        for (e in exo)
         {
-            if (!differentMuscles.contains(musclesExo[i]))
+            musclesExo = if (isMuscle) e.muscles else e.material
+            for (i in musclesExo.indices)
             {
-                differentMuscles.add(musclesExo[i])
+                if (!differentMuscles.contains(musclesExo[i]))
+                {
+                    differentMuscles.add(musclesExo[i])
+                }
             }
         }
+    }catch (e : IndexOutOfBoundsException)
+    {
+        return arrayListOf("None")
     }
     return (differentMuscles)
 }
@@ -49,27 +57,35 @@ fun computeTimeForWorkout(exo: MutableList<Exercise>): Int
 {
     var totalEstimatedTime = 0
     var exoEstimatedTime: Int
-    for (e in exo)
-    {
-        exoEstimatedTime = e.rest * (e.series - 1) + e.tempo * e.reps
-        if (e.superset != null)
+    try {
+        if (exo.isEmpty())
+            return 0
+        for (e in exo)
         {
-            e.superset!!.let {
-                exoEstimatedTime += it.tempo * it.reps
+            exoEstimatedTime = e.rest * (e.series - 1) + e.tempo * e.reps
+            if (e.superset != null)
+            {
+                e.superset!!.let {
+                    exoEstimatedTime += it.tempo * it.reps
+                }
             }
+            totalEstimatedTime += exoEstimatedTime
         }
-        totalEstimatedTime += exoEstimatedTime
+    }
+    catch (e: IndexOutOfBoundsException)
+    {
+        return 0
     }
     return (totalEstimatedTime)
 }
 
 @Entity(tableName = "workouts", primaryKeys = ["timestamp", "name"])
 data class Workout(
-    @ColumnInfo(name = "timestamp") var timestamp: String="",
+    @ColumnInfo(name = "timestamp") var timestamp: Long = 0L,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "img") var img: Int = 0,
     @ColumnInfo(name = "cycle") var cycle: Boolean = false,
-
+    @ColumnInfo(name = "saved") var saved: Boolean = false,
     @ColumnInfo(name = "description") var description: String = "No description given",
     @TypeConverters(ExerciseListConverter::class) @ColumnInfo(name = "exercises") var exercises: ArrayList<Exercise>,
     @TypeConverters(ListConverter::class) @ColumnInfo(name = "material") var material: ArrayList<String> = getDifferentMusclesOrMaterial(
@@ -81,7 +97,7 @@ data class Workout(
     ),
     @ColumnInfo(name = "time") var time: Int = computeTimeForWorkout(exercises)
 ) : Serializable {
-    constructor() : this("123456", "None", 0, false, "Empty", arrayListOf<Exercise>(Exercise("Empty")))
+    constructor() : this(0L, "None", 0, false,false, "Empty", arrayListOf<Exercise>(Exercise("Empty")))
 }
 
 
