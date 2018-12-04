@@ -1,12 +1,16 @@
 package com.example.jpec.streetint.fragments.create_workout
 
+import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.CreateWorkoutActivity
@@ -64,6 +68,7 @@ class ChooseExoFragment : androidx.fragment.app.Fragment() {
                 }
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    exoList = ArrayList()
                     for (item in dataSnapshot.children)
                     {
                         val musclesList = ArrayList<String>()
@@ -98,7 +103,23 @@ class ChooseExoFragment : androidx.fragment.app.Fragment() {
 
             })
     }
+/*
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the options menu from XML
+        val inflater = activity!!.menuInflater
+        inflater.inflate(R.menu.options_menu, menu)
 
+        // Get the SearchView and set the searchable configuration
+        val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.searchView).actionView as SearchView).apply {
+            // Assumes current activity is the searchable activity
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        }
+
+        return true
+    }
+*/
     private fun setAdapter()
     {
         viewManager = LinearLayoutManager(activity)

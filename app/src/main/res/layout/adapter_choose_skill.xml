@@ -33,6 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:id="@+id/skillName"
             app:layout_constraintStart_toEndOf="@id/guideline_vertical"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
@@ -50,7 +52,6 @@
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical2"
             app:layout_constraintTop_toBottomOf="@id/skillName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
     />
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_vertical2"

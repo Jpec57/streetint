@@ -19,8 +19,10 @@ import com.example.jpec.streetint.utils.ZoomCenterCardLayoutManager
 import kotlinx.android.synthetic.main.activity_created_workout.*
 import kotlinx.android.synthetic.main.adapter_created_workout_overview.view.*
 import android.view.Display
+import android.view.View
 import com.example.jpec.streetint.interfaces.DbWorkerThread
 import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import org.jetbrains.anko.toast
 
 
 class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
@@ -85,6 +87,11 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
             workouts = mDb?.workoutDao()?.getSavedWorkouts()
             mUiHandler.post{
                 setAdapter()
+                if (workouts.isNullOrEmpty())
+                {
+                    recyclerView.visibility = View.INVISIBLE
+                    toast("You have no saved workout yet")
+                }
             }
         }
         while (!mDbWorkerThread.ready) ;
@@ -93,6 +100,14 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
 
     private fun setAdapter()
     {
+        if (workouts.isNullOrEmpty())
+        {
+            workouts = listOf(Workout(name = "Example Workout", exercises = arrayListOf(Exercise(name = "None"))))
+            start.text = getString(R.string.create_one)
+            start.setOnClickListener {
+                startActivity(Intent(this, CreateWorkoutActivity::class.java))
+            }
+        }
         viewManager = ZoomCenterCardLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false, this)
         viewAdapter = CreatedWorkoutAdapter(this, workouts!!)
 

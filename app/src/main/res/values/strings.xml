@@ -68,6 +68,8 @@
     <string name="workout_name">Workout Name</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="create_one">Create one</string>
+    <string name="pull_up">Pull up</string>
 
 
 </resources>

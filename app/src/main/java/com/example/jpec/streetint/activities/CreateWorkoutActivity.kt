@@ -42,6 +42,10 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
     }
 
     override fun goBackToMuscle() {
+        for (exo in createdWorkout.exercises)
+            for (m in exo.muscles)
+                if (m !in selectedMuscles)
+                    selectedMuscles.add(m)
         mPager.currentItem = 0
     }
 
