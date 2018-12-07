@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.create_workout
+package com.example.jpec.streetint.fragments.createWorkout
 
 import android.os.Bundle
 import android.view.LayoutInflater

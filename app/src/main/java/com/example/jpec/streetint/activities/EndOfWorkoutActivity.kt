@@ -2,19 +2,19 @@ package com.example.jpec.streetint.activities
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutContentFragment
-import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutMuscleFragment
-import com.example.jpec.streetint.fragments.end_of_workout.EndOfWorkoutResumeFragment
-import com.example.jpec.streetint.interfaces.DbWorkerThread
-import com.example.jpec.streetint.interfaces.SkillUserInfoDatabase
-import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.fragments.endOfWorkout.EndOfWorkoutContentFragment
+import com.example.jpec.streetint.fragments.endOfWorkout.EndOfWorkoutMuscleFragment
+import com.example.jpec.streetint.fragments.endOfWorkout.EndOfWorkoutResumeFragment
+import com.example.jpec.streetint.databases.DbWorkerThread
+import com.example.jpec.streetint.interfaces.EndOfWorkoutCommunicator
+import com.example.jpec.streetint.databases.SkillUserInfoDatabase
+import com.example.jpec.streetint.databases.WorkoutDatabase
 import com.example.jpec.streetint.models.ProfileDataModel
 import com.example.jpec.streetint.models.Workout
 
-class EndOfWorkoutActivity : androidx.fragment.app.FragmentActivity() {
+class EndOfWorkoutActivity : androidx.fragment.app.FragmentActivity(), EndOfWorkoutCommunicator {
     private lateinit var mPager: androidx.viewpager.widget.ViewPager
     var workouts: List<Workout>? = null
     lateinit var workout: Workout
@@ -40,6 +40,8 @@ class EndOfWorkoutActivity : androidx.fragment.app.FragmentActivity() {
         mPager.currentItem = 0
         setDatabase()
     }
+
+    override fun getWorkoutFromActivity() = workout
 
     override fun onBackPressed() {
         if (mPager.currentItem != 1) {
@@ -126,7 +128,6 @@ class EndOfWorkoutActivity : androidx.fragment.app.FragmentActivity() {
             skillLevels = skillUserInfoDatabase?.skillUserInfoDao()?.getSkillInfo()
             if (skillLevels == null)
             {
-                Log.e("HELIX", "Error with skill levels")
                 skillLevels = ProfileDataModel.SkillLevels("Unknown user")
                 setSkillUserInfo()
             }

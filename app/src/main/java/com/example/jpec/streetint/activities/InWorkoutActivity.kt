@@ -3,8 +3,8 @@ package com.example.jpec.streetint.activities
 import android.os.*
 import android.os.Bundle
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.in_workout.WorkoutCountdownViewFragment
-import com.example.jpec.streetint.fragments.in_workout.WorkoutExerciseViewFragment
+import com.example.jpec.streetint.fragments.inWorkout.WorkoutCountdownViewFragment
+import com.example.jpec.streetint.fragments.inWorkout.WorkoutExerciseViewFragment
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.LockableViewPager
 
@@ -39,11 +39,9 @@ class InWorkoutActivity : androidx.fragment.app.FragmentActivity() {
         launchTime()
 
 
-        // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager)
         mPager.setSwipePagingEnabled(false)
 
-        // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         mPager.adapter = pagerAdapter
     }

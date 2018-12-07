@@ -1,12 +1,11 @@
 package com.example.jpec.streetint.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.create_workout.ChooseExoFragment
-import com.example.jpec.streetint.fragments.create_workout.MuscleFragment
-import com.example.jpec.streetint.fragments.create_workout.ResumeWorkoutFragment
+import com.example.jpec.streetint.fragments.createWorkout.ChooseExoFragment
+import com.example.jpec.streetint.fragments.createWorkout.MuscleFragment
+import com.example.jpec.streetint.fragments.createWorkout.ResumeWorkoutFragment
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
@@ -64,11 +63,16 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
 
     override fun onBackPressed() {
         super.onBackPressed()
+        if (mPager.currentItem != 0)
+        {
+            mPager.currentItem = mPager.currentItem - 1
+        }
+        /*
         when (mPager.currentItem)
         {
-            0 -> mPager.currentItem = mPager.currentItem - 1
             else -> mPager.currentItem = mPager.currentItem - 1
         }
+        */
     }
 
     private inner class ScreenSlidePagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {

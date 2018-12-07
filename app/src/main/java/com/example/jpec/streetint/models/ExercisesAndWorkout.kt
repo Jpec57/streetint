@@ -79,7 +79,7 @@ fun computeTimeForWorkout(exo: MutableList<Exercise>): Int
     return (totalEstimatedTime)
 }
 
-@Entity(tableName = "workouts", primaryKeys = ["timestamp", "name"])
+@Entity(tableName = "premadeWorkouts", primaryKeys = ["timestamp", "name"])
 data class Workout(
     @ColumnInfo(name = "timestamp") var timestamp: Long = 0L,
     @ColumnInfo(name = "name") var name: String,

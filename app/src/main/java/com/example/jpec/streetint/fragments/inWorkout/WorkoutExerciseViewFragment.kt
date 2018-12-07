@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.in_workout
+package com.example.jpec.streetint.fragments.inWorkout
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -49,7 +49,6 @@ class WorkoutExerciseViewFragment : androidx.fragment.app.Fragment() {
             exo.series = 1
             exo.reps = 0
             doneExo.add(exo)
-            Log.e("Jpec", "Exo added")
         }
         else
         {

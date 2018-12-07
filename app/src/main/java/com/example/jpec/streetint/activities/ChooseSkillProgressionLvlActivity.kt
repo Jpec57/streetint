@@ -2,9 +2,6 @@ package com.example.jpec.streetint.activities
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ChooseSkillProgressionAdapter
 import com.example.jpec.streetint.models.Workout
@@ -26,7 +23,7 @@ class ChooseSkillProgressionLvlActivity : Activity() {
     {
         val bundle = intent.extras
         if (bundle != null)
-            workouts = bundle.getSerializable("workouts") as ArrayList<Workout>
+            workouts = bundle.getSerializable("premadeWorkouts") as ArrayList<Workout>
         val lvl = intent.getIntExtra("lvl", 1)
         lvlUser.text = "Skill lvl $lvl"
         viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)

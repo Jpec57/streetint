@@ -1,27 +1,23 @@
-package com.example.jpec.streetint.fragments.create_workout
+package com.example.jpec.streetint.fragments.createWorkout
 
-import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.activities.CreateWorkoutActivity
 import com.example.jpec.streetint.adapters.ChooseExoAdapter
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
 import com.example.jpec.streetint.models.Exercise
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_choose_exo.*
+
 
 class ChooseExoFragment : androidx.fragment.app.Fragment() {
     private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
-    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
     private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
 
     private lateinit var mDbRef : DatabaseReference
@@ -103,31 +99,28 @@ class ChooseExoFragment : androidx.fragment.app.Fragment() {
 
             })
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the options menu from XML
-        val inflater = activity!!.menuInflater
-        inflater.inflate(R.menu.options_menu, menu)
 
-        // Get the SearchView and set the searchable configuration
-        val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.searchView).actionView as SearchView).apply {
-            // Assumes current activity is the searchable activity
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
-        }
-
-        return true
-    }
-*/
     private fun setAdapter()
     {
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = ChooseExoAdapter(exoList, communicator)
+        val viewAdapter = ChooseExoAdapter(exoList, communicator)
         recyclerView = activity!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_exo).apply {
             layoutManager = viewManager
             adapter = viewAdapter
             setHasFixedSize(true)
         }
+        searchBox.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                motionLayout.transitionToEnd()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewAdapter.filter.filter(s.toString())
+            }
+        })
+
     }
 }

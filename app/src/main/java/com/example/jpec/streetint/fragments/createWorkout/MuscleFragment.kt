@@ -1,8 +1,7 @@
-package com.example.jpec.streetint.fragments.create_workout
+package com.example.jpec.streetint.fragments.createWorkout
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +9,13 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.example.jpec.streetint.Constants.Constants
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.activities.CreateWorkoutActivity
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 
 class MuscleFragment : Fragment() {
     private lateinit var communicator: CreateWorkoutCommunicator
-    private val muscleColorMap = mapOf("chest" to R.style.chest,
-        "biceps" to R.style.biceps, "triceps" to R.style.triceps,
-        "leg" to R.style.leg, "shoulder" to R.style.shoulders,
-        "trapezius" to R.style.trapezius, "back" to R.style.back,
-        "abs" to R.style.abs)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_muscle, container, false)
@@ -44,7 +38,7 @@ class MuscleFragment : Fragment() {
         val muscles = communicator.getSelectedMusclesArray()
         for (m in muscles)
         {
-            theme.applyStyle(muscleColorMap[m.toLowerCase()]!!, false)
+            theme.applyStyle(Constants.muscleColorMap[m.toLowerCase()]!!, false)
         }
         val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_paths, theme)
         svg.setImageDrawable(drawable)
@@ -52,7 +46,6 @@ class MuscleFragment : Fragment() {
 
     private fun selectMuscle(muscle : String)
     {
-        showToast(muscle)
         communicator.setMuscle(muscle)
     }
 

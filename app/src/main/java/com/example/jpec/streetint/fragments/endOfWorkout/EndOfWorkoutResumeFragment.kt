@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.end_of_workout
+package com.example.jpec.streetint.fragments.endOfWorkout
 
 import android.content.Intent
 import android.os.Bundle

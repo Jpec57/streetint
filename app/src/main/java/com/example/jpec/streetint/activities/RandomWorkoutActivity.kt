@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
+import com.example.jpec.streetint.Constants.Constants
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.RandomWorkoutAdapter
 import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
@@ -193,9 +194,7 @@ class RandomWorkoutActivity : Activity() {
             randomWorkout.time = computeTimeForWorkout(randomWorkout.exercises)
         }
         randomWorkout.time = computeTimeForWorkout(randomWorkout.exercises)
-        Log.e("HELIX", "${randomWorkout.exercises.toString()}")
         randomWorkout.exercises.sortByDescending { it.difficulty }
-        Log.e("HELIX", "${randomWorkout.exercises.toString()}")
 
         val intent = Intent(this, ShowWorkoutContentActivity::class.java)
         val bundle = Bundle()
@@ -300,10 +299,10 @@ class RandomWorkoutActivity : Activity() {
     private fun setAdapter()
     {
         adapterMap = mutableMapOf()
-        adapterMap["Goal"] = arrayListOf("Strength", "Gain mass", "Cardio")
-        adapterMap["Difficulty"] = arrayListOf("Beginner", "Rookie", "Intermediate", "Seasoned", "Elite")
-        adapterMap["Targeted muscles"] = arrayListOf("Back", "Biceps", "Triceps", "Chest", "Legs", "Abs", "Shoulders")
-        adapterMap["Available materials"] = arrayListOf("None", "Parallel Bars", "Pull Up Bar", "Rubber", "Kettlebell", "Weight")
+        adapterMap["Goal"] = Constants.goal
+        adapterMap["Difficulty"] = Constants.difficultyLevels
+        adapterMap["Targeted muscles"] = Constants.muscleList
+        adapterMap["Available materials"] = Constants.materialList
 
         viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         randomAdapter = RandomWorkoutAdapter(this, adapterMap, getPrefForRandom())
@@ -311,20 +310,10 @@ class RandomWorkoutActivity : Activity() {
         viewAdapter = randomAdapter
 
         recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
-            // use a linear layout manager
             layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
-        recyclerView.addItemDecoration(
-            androidx.recyclerview.widget.DividerItemDecoration(
-                recyclerView.context,
-                androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL
-            )
-        )
     }
 
     fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()

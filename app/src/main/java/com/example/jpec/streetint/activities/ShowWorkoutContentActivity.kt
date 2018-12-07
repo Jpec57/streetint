@@ -3,21 +3,13 @@ package com.example.jpec.streetint.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.widget.Toast
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.adapters.ChoosePremadeWorkoutAdapter
 import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
-import com.example.jpec.streetint.interfaces.DbWorkerThread
-import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.databases.DbWorkerThread
+import com.example.jpec.streetint.databases.WorkoutDatabase
 
-import com.example.jpec.streetint.models.Exercise
-import com.example.jpec.streetint.models.StringList
 import com.example.jpec.streetint.models.Workout
 import kotlinx.android.synthetic.main.activity_show_workout_content.*
 

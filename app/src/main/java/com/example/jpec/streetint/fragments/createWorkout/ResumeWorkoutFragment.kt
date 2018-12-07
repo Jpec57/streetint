@@ -1,13 +1,10 @@
-package com.example.jpec.streetint.fragments.create_workout
+package com.example.jpec.streetint.fragments.createWorkout
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ShowEditWorkoutContentAdapter
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
-import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.jpec.streetint.activities.InWorkoutActivity
-import com.example.jpec.streetint.interfaces.DbWorkerThread
-import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.databases.DbWorkerThread
+import com.example.jpec.streetint.databases.WorkoutDatabase
 import kotlinx.android.synthetic.main.activity_show_workout_content.*
 import org.jetbrains.anko.support.v4.toast
 import java.lang.NullPointerException

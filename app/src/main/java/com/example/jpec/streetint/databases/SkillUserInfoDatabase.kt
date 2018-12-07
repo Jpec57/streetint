@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.interfaces
+package com.example.jpec.streetint.databases
 
 import androidx.room.*
 import android.content.Context

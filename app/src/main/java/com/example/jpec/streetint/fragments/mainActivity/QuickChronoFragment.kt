@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.main_activity
+package com.example.jpec.streetint.fragments.mainActivity
 
 import android.content.Context
 import android.os.Bundle
@@ -79,7 +79,6 @@ class QuickChronoFragment : androidx.fragment.app.Fragment() {
 
 
 
-    @Suppress("DEPRECATION")
     private fun endCountDown()
     {
         timer.cancel()

@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.main_activity
+package com.example.jpec.streetint.fragments.mainActivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +15,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view!!, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         allworkouts.setOnClickListener {
             startActivity(Intent(activity!!.applicationContext, ChooseProgramActivity::class.java))
         }

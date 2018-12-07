@@ -48,12 +48,8 @@ class RandomWorkoutAdapter(val context: Context, private val choices: MutableMap
 
         val recycler = holder.baseLayout.recyclerInside
         recycler.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
-            // use a linear layout manager
             layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
         setPreviewTextAtPos(holder.baseLayout.selected, choices.keys.elementAt(position))

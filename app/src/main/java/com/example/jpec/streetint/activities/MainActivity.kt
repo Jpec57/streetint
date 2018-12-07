@@ -2,8 +2,8 @@ package com.example.jpec.streetint.activities
 
 import android.os.Bundle
 import com.example.jpec.streetint.R
-import com.example.jpec.streetint.fragments.main_activity.MainFragment
-import com.example.jpec.streetint.fragments.main_activity.QuickChronoFragment
+import com.example.jpec.streetint.fragments.mainActivity.MainFragment
+import com.example.jpec.streetint.fragments.mainActivity.QuickChronoFragment
 
 class MainActivity : androidx.fragment.app.FragmentActivity() {
     val NUM_PAGES = 2
@@ -13,21 +13,15 @@ class MainActivity : androidx.fragment.app.FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager)
-
-        // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         mPager.adapter = pagerAdapter
     }
 
     override fun onBackPressed() {
         if (mPager.currentItem == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed()
         } else {
-            // Otherwise, select the previous step.
             mPager.currentItem = mPager.currentItem - 1
         }
     }

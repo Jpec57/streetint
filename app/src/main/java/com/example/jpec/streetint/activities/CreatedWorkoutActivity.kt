@@ -4,24 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.DisplayMetrics
-import android.util.Log
+import android.view.View
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.CreatedWorkoutAdapter
 import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
 import com.example.jpec.streetint.interfaces.CreatedWorkoutFocusListener
+import com.example.jpec.streetint.databases.DbWorkerThread
+import com.example.jpec.streetint.databases.WorkoutDatabase
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.ZoomCenterCardLayoutManager
 import kotlinx.android.synthetic.main.activity_created_workout.*
 import kotlinx.android.synthetic.main.adapter_created_workout_overview.view.*
-import android.view.Display
-import android.view.View
-import com.example.jpec.streetint.interfaces.DbWorkerThread
-import com.example.jpec.streetint.interfaces.WorkoutDatabase
 import org.jetbrains.anko.toast
 
 
@@ -126,12 +121,8 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
         viewAdapter2 = ShowWorkoutContentAdapter(this, currentWorkout)
 
         recyclerView2 = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_in).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
-            // use a linear layout manager
             layoutManager = viewManager2
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter2
         }
     }

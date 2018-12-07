@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.fragments.in_workout
+package com.example.jpec.streetint.fragments.inWorkout
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.EndOfWorkoutActivity
 import com.example.jpec.streetint.activities.InWorkoutActivity
-import com.example.jpec.streetint.interfaces.DbWorkerThread
-import com.example.jpec.streetint.interfaces.WorkoutDatabase
+import com.example.jpec.streetint.databases.DbWorkerThread
+import com.example.jpec.streetint.databases.WorkoutDatabase
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.fragment_in_workout_rest.*

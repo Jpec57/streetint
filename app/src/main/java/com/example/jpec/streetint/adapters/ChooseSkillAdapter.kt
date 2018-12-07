@@ -35,7 +35,7 @@ class ChooseSkillAdapter(val context: Context, private val allSkills: MutableMap
         holder.baseLayout.chooseSkill.setOnClickListener {
             val intent = Intent(context, ChooseSkillProgressionLvlActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("workouts", allSkills[key])
+            bundle.putSerializable("premadeWorkouts", allSkills[key])
             intent.putExtra("lvl", skillLevels.skillLevels[key])
             intent.putExtras(bundle)
             context.startActivity(intent)

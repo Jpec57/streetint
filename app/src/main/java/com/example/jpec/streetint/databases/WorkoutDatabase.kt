@@ -1,4 +1,4 @@
-package com.example.jpec.streetint.interfaces
+package com.example.jpec.streetint.databases
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
@@ -12,28 +12,28 @@ import com.example.jpec.streetint.models.Workout
 @Dao
 interface WorkoutDAO {
 
-    @Query("SELECT * from workouts")
+    @Query("SELECT * from premadeWorkouts")
     fun getAllWorkouts(): List<Workout>
 
-    @Query("SELECT * from workouts where name =:name")
+    @Query("SELECT * from premadeWorkouts where name =:name")
     fun getWorkout(name: String) : List<Workout>
 
-    @Query("SELECT * from workouts where name =:name LIMIT :limit")
+    @Query("SELECT * from premadeWorkouts where name =:name LIMIT :limit")
     fun getWorkoutWithLimit(name: String, limit: Int) : List<Workout>
 
-    @Query("SELECT * from workouts where name=:name order by timestamp limit 1")
+    @Query("SELECT * from premadeWorkouts where name=:name order by timestamp limit 1")
     fun getInitWorkout(name: String) : Workout
 
-    @Query("SELECT w1.* FROM workouts w1 INNER JOIN (SELECT DISTINCT name, timestamp FROM workouts WHERE saved = 1 ORDER BY timestamp LIMIT 1) AS w2 ON w1.name = w2.name AND w1.timestamp = w2.timestamp")
+    @Query("SELECT w1.* FROM premadeWorkouts w1 INNER JOIN (SELECT DISTINCT name, timestamp FROM premadeWorkouts WHERE saved = 1 ORDER BY timestamp LIMIT 1) AS w2 ON w1.name = w2.name AND w1.timestamp = w2.timestamp")
     fun getSavedWorkouts() : List<Workout>
 
     @Insert(onConflict = REPLACE)
     fun insertWorkout(workout: Workout)
 
-    @Query("DELETE from workouts where name = :name")
+    @Query("DELETE from premadeWorkouts where name = :name")
     fun deleteWorkout(name: String)
 
-    @Query("DELETE from workouts")
+    @Query("DELETE from premadeWorkouts")
     fun deleteAllWorkouts()
 }
 
@@ -54,7 +54,7 @@ abstract class WorkoutDatabase : RoomDatabase() {
 //                    INSTANCE = Room.inMemoryDatabaseBuilder(context.applicationContext, WorkoutDatabase::class.java).build()
 
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        WorkoutDatabase::class.java, "workouts.db")
+                        WorkoutDatabase::class.java, "premadeWorkouts.db")
                         .build()
 
                 }
