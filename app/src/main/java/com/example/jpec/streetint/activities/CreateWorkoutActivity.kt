@@ -1,6 +1,7 @@
 package com.example.jpec.streetint.activities
 
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.fragments.createWorkout.ChooseExoFragment
@@ -14,6 +15,8 @@ import com.example.jpec.streetint.utils.LockableViewPager
 class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWorkoutCommunicator {
     val NUM_PAGES = 3
     lateinit var mPager: LockableViewPager
+    private var doubleBackToExitPressedOnce = false
+
 
     var selectedMuscle = ""
     var createdWorkout = Workout(name = "Workout Name", exercises = ArrayList(), saved = true)
@@ -62,17 +65,18 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
         if (mPager.currentItem != 0)
-        {
             mPager.currentItem = mPager.currentItem - 1
-        }
-        /*
-        when (mPager.currentItem)
+        else
         {
-            else -> mPager.currentItem = mPager.currentItem - 1
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
-        */
     }
 
     private inner class ScreenSlidePagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
@@ -86,7 +90,4 @@ class CreateWorkoutActivity : androidx.fragment.app.FragmentActivity(), CreateWo
                 else -> ResumeWorkoutFragment()
             }
     }
-
-    private fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-
 }

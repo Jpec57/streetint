@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.example.jpec.streetint.Constants.Constants
+import com.example.jpec.streetint.constants.Constants
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.interfaces.CreateWorkoutCommunicator
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*

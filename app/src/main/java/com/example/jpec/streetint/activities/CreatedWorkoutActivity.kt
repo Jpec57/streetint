@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
 import android.view.View
+import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.CreatedWorkoutAdapter
 import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
@@ -17,7 +18,6 @@ import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.utils.ZoomCenterCardLayoutManager
 import kotlinx.android.synthetic.main.activity_created_workout.*
 import kotlinx.android.synthetic.main.adapter_created_workout_overview.view.*
-import org.jetbrains.anko.toast
 
 
 class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
@@ -85,7 +85,7 @@ class CreatedWorkoutActivity : Activity(), CreatedWorkoutFocusListener {
                 if (workouts.isNullOrEmpty())
                 {
                     recyclerView.visibility = View.INVISIBLE
-                    toast("You have no saved workout yet")
+                    Toast.makeText(this, "You have no saved workout yet", Toast.LENGTH_LONG).show()
                 }
             }
         }

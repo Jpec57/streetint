@@ -3,6 +3,7 @@ package com.example.jpec.streetint.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.example.jpec.streetint.R
 import kotlinx.android.synthetic.main.activity_your_workouts.*
 
@@ -22,7 +23,8 @@ class YourWorkoutsActivity : Activity() {
             startActivity(Intent(this, RandomWorkoutActivity::class.java))
         }
         tempo.setOnClickListener {
-            startActivity(Intent(this, TempoWorkoutActivity::class.java))
+            Toast.makeText(this, "Not available yet", Toast.LENGTH_LONG).show()
+//            startActivity(Intent(this, TempoWorkoutActivity::class.java))
         }
         created_workouts.setOnClickListener {
             startActivity(Intent(this, CreatedWorkoutActivity::class.java))

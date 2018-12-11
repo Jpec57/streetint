@@ -11,7 +11,6 @@ import com.example.jpec.streetint.adapters.ChooseSkillAdapter
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.ProfileDataModel
 import com.example.jpec.streetint.models.Workout
-import com.example.jpec.streetint.utils.ObservableList
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

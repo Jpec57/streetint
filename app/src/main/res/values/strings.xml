@@ -70,6 +70,8 @@
     <string name="no">No</string>
     <string name="create_one">Create one</string>
     <string name="pull_up">Pull up</string>
+    <string name="min">min</string>
+    <string name="random_workout_generator">Random workout generator</string>
 
 
 </resources>

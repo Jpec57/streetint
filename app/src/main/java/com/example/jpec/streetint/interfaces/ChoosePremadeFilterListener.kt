@@ -1,5 +1,5 @@
 package com.example.jpec.streetint.interfaces
 
-interface ChoosePremadeWorkoutListener {
+interface ChoosePremadeFilterListener {
 
 }

@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_white"
+            android:background="@color/blue"
             android:id="@+id/expand">
         <TextView
                 android:layout_width="wrap_content"
@@ -19,6 +19,7 @@
                 app:layout_constrainedWidth="true"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:textColor="@color/grey1"
                 android:id="@+id/option_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
@@ -44,6 +45,7 @@
                 app:layout_constrainedWidth="true"
                 android:textStyle="italic"
                 android:textSize="18sp"
+                android:textColor="@color/grey1"
                 app:layout_constraintStart_toStartOf="@id/guideline_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

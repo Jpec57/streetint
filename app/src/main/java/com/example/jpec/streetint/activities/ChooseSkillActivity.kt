@@ -3,7 +3,7 @@ package com.example.jpec.streetint.activities
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
-import com.example.jpec.streetint.Constants.HardcodedWorkouts
+import com.example.jpec.streetint.constants.HardcodedWorkouts
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.ChooseSkillAdapter
 import com.example.jpec.streetint.databases.DbWorkerThread

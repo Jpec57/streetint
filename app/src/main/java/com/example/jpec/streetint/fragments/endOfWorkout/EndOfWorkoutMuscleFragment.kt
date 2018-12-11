@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.interfaces.EndOfWorkoutCommunicator
-import com.example.jpec.streetint.Constants.Constants
+import com.example.jpec.streetint.constants.Constants
 import kotlinx.android.synthetic.main.fragment_choose_muscle.*
 
 class EndOfWorkoutMuscleFragment : androidx.fragment.app.Fragment() {

@@ -1,29 +1,23 @@
 package com.example.jpec.streetint.activities
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
-import com.example.jpec.streetint.Constants.Constants
+import com.example.jpec.streetint.constants.Constants
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.adapters.RandomWorkoutAdapter
-import com.example.jpec.streetint.adapters.ShowWorkoutContentAdapter
 import com.example.jpec.streetint.models.Exercise
 import com.example.jpec.streetint.models.Workout
 import com.example.jpec.streetint.models.computeTimeForWorkout
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_random_workout.*
 import kotlinx.android.synthetic.main.dialog_choose_time_duration.*
-import org.jetbrains.anko.toast
 import kotlin.random.Random
 
 class RandomWorkoutActivity : Activity() {

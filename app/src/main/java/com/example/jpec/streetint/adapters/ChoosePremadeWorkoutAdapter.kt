@@ -3,31 +3,48 @@ package com.example.jpec.streetint.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.TextView
-import android.widget.Toast
 import com.example.jpec.streetint.R
 import com.example.jpec.streetint.activities.ShowWorkoutContentActivity
-import com.example.jpec.streetint.models.StringList
 import com.example.jpec.streetint.models.Workout
+import com.google.common.collect.Lists
 import kotlinx.android.synthetic.main.adapter_choose_premade.view.*
+import java.util.*
 
 class ChoosePremadeWorkoutAdapter(private val context: Context, private val allWorkouts: MutableList<Workout>) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ChoosePremadeWorkoutAdapter.MyViewHolder>(), Filterable {
+
+    private fun getCorrespondingWorkouts(muscles : ArrayList<String>) : ArrayList<Workout>
+    {
+        Log.e("HELIX", "ARR: $muscles")
+        val arr = ArrayList<Workout>()
+        for (w in allWorkouts)
+        {
+            for (m in w.muscles)
+            {
+                if (muscles.contains(m))
+                    arr.add(w)
+            }
+        }
+        return arr
+    }
+
     override fun getFilter() = object: Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val arr = Lists.newArrayList<String>(constraint.toString().split(','))
+            Log.e("HELIX", "")
             val filterResults = FilterResults()
-//            filterResults.values = exoListFiltered
+            filterResults.values = getCorrespondingWorkouts(arr)
             return filterResults
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-
+            notifyDataSetChanged()
         }
     }
 
@@ -70,35 +87,12 @@ class ChoosePremadeWorkoutAdapter(private val context: Context, private val allW
         return material
     }
 
-    private fun setMaterial(tab: StringList) : String
-    {
-        var material = ""
-        if (tab.list.size == 1 && tab.list[0] == "None")
-            material = "None"
-        else
-        {
-            tab.list.remove("None")
-            for (m in tab.list)
-                material += ("$m\n")
-        }
-        return material
-    }
-
     private fun setTime(duration: Int) : String
     {
-        lateinit var res : String
-        if (duration > 3600)
-        {
-            res = "${duration / 3600} hr ${(duration % 3600) / 60} min"
+        return when {
+            duration > 3600 -> "${duration / 3600} hr ${(duration % 3600) / 60} min"
+            duration > 60 -> "${duration / 60} min"
+            else -> "$duration sec"
         }
-        else if (duration > 60)
-        {
-            res = "${duration / 60} min"
-        }
-        else
-        {
-            res = "$duration sec"
-        }
-        return res
     }
 }

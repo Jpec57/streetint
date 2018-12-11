@@ -1,6 +1,8 @@
 package com.example.jpec.streetint.models
 
 import androidx.room.*
+import com.example.jpec.streetint.constants.Constants
+import com.example.jpec.streetint.utils.createHashMapFromKeysWithDefaultValue
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -10,29 +12,12 @@ class ProfileDataModel {
     data class SkillLevels(@PrimaryKey var username: String,
                            @ColumnInfo(name= "globalSkillLevel") var globalSkillLevel: Int = 0,
                            @TypeConverters(IntMapConverter::class)
-                               @ColumnInfo(name= "skillLevels") var skillLevels: MutableMap<String, Int> = mutableMapOf(
-                                  "Human Flag" to 1,
-                                  "Hefesto" to 1,
-                                  "Front Lever" to 1,
-                                  "Back Lever" to 1,
-                                  "V-Sit" to 1,
-                                  "Handstand" to 1,
-                                  "Muscle Up" to 1,
-                                  "Pistol Squat" to 1,
-                                  "Planche" to 1
-                           ),
+                               @ColumnInfo(name= "skillLevels") var skillLevels: MutableMap<String, Int>
+                               = createHashMapFromKeysWithDefaultValue(Constants.skills, 1),
                            @TypeConverters(IntMapConverter::class)
-                               @ColumnInfo(name= "skillPercents") var skillPercents : MutableMap<String, Int> = mutableMapOf(
-                                  "Human Flag" to 0,
-                                  "Hefesto" to 0,
-                                  "Front Lever" to 0,
-                                  "Back Lever" to 0,
-                                  "V-Sit" to 0,
-                                  "Handstand" to 0,
-                                  "Muscle Up" to 0,
-                                  "Pistol Squat" to 0,
-                                  "Planche" to 0
-                           ))
+                               @ColumnInfo(name= "skillPercents") var skillPercents : MutableMap<String, Int>
+                               = createHashMapFromKeysWithDefaultValue(Constants.skills, 0)
+                           )
 
     class MuscleLevels(var globalMuscleLevel: Int = 0,
                        @TypeConverters(IntMapConverter::class)
@@ -56,7 +41,7 @@ class IntMapConverter {
     fun fromString(value: String): Map<String, Int> {
         val mapType = object : TypeToken<Map<String, Int>>() {
 
-        }.getType()
+        }.type
         return Gson().fromJson(value, mapType)
     }
 
